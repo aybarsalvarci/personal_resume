@@ -30,6 +30,7 @@ class ProjectController extends Controller
 
         $projects = $query
             ->orderBy('created_at', 'DESC')
+            ->with('category')
             ->paginate(10)
             ->withQueryString();
 

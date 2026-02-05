@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
             $table->boolean('isFeatured')->default(false);
+            $table->enum('status', ['completed', 'in-progress', 'upcoming'])->default('in-progress');
             $table->string('keys')->nullable();
             $table->timestamps();
 

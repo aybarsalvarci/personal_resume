@@ -18,6 +18,7 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         $icons = ["fas fa-user", "fas fa-shopping-cart", "fas fa-image", "fas fa-lightbulb", "fas fa-laptop-code", "fas fa-chart-line", "fas fa-chart-pie"];
+        $status = ['completed', 'in-progress', 'upcoming'];
         $name = $this->faker->word();
         return [
             'category_id' => ProjectCategory::factory(),
@@ -27,6 +28,7 @@ class ProjectFactory extends Factory
             'name' => $name,
             'slug' => str()->slug($name),
             'description' => $this->faker->text(),
+            'status' => $this->faker->randomElement($status),
             'isFeatured' => $this->faker->boolean(),
             'meta_description' => $this->faker->text(160),
             'meta_keywords' => $this->faker->text(160),
