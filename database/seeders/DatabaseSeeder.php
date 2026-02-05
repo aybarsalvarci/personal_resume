@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\User;
@@ -25,6 +26,10 @@ class DatabaseSeeder extends Seeder
 
         ProjectCategory::factory(10)
             ->has(Project::factory()->count(10), 'projects')
+            ->create();
+
+        BlogCategory::factory(10)
+            ->has(Blog::factory()->count(10), 'blogs')
             ->create();
     }
 }

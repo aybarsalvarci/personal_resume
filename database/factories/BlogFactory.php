@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\BlogCategory;
 use App\Models\Category;
-use App\Models\ProjectCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +20,7 @@ class BlogFactory extends Factory
     {
         $title = $this->faker->unique()->sentence();
         return [
-            'category_id' => ProjectCategory::factory(),
+            'category_id' => BlogCategory::factory(),
             'title' => $title,
             'slug' => str()->slug($title),
             'meta_description' => $this->faker->sentence(),

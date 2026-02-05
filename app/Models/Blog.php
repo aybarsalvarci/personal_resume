@@ -13,6 +13,6 @@ class Blog extends Model
 
     public function category() : BelongsTo
     {
-        return $this->belongsTo(ProjectCategory::class, 'category_id', 'id');
+        return $this->belongsTo(BlogCategory::class, 'category_id', 'id');
     }
 }

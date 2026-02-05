@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('content');
             $table->boolean('isFeatured')->default(false);
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('blog_categories');
         });
     }
 
