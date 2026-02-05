@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Aybars Şalvarcı</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Yazılım geliştirme, backend teknolojileri ve clean architecture hakkında yazılar. Öğrendiklerimi ve deneyimlerimi paylaşıyorum.">
+    <meta name="keywords" content="Backend Development, Clean Architecture, Laravel, Python, Yazılım Blog, Software Development">
+    
+    <!-- Fonts & Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="portfolio.html">Aybars.dev</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="portfolio.html#about">Hakkımda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portfolio.html#expertise">Uzmanlık</a></li>
+                    <li class="nav-item"><a class="nav-link" href="projects.html">Projeler</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portfolio.html#contact">İletişim</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-primary rounded-pill px-4" href="portfolio.html#contact">
+                            <i class="fas fa-paper-plane me-2"></i>Birlikte Çalışalım
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="mb-3" data-aos="fade-up">
+                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill border border-primary border-opacity-25">
+                    <i class="fas fa-blog me-2"></i>Teknik Blog
+                </span>
+            </div>
+            <h1 class="page-title" data-aos="fade-up" data-aos-delay="100">
+                Öğrendiklerimi<br>
+                <span class="gradient-text">Paylaşıyorum</span>
+            </h1>
+            <p class="page-subtitle" data-aos="fade-up" data-aos-delay="200">
+                Backend development, clean architecture ve modern teknolojiler üzerine yazılar
+            </p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="py-3">
+        <div class="container">
+            <div class="d-flex flex-wrap gap-2 justify-content-center" data-aos="fade-up">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th me-2"></i>Tümü
+                </button>
+                <button class="filter-btn" data-filter="architecture">
+                    <i class="fas fa-layer-group me-2"></i>Architecture
+                </button>
+                <button class="filter-btn" data-filter="performance">
+                    <i class="fas fa-tachometer-alt me-2"></i>Performance
+                </button>
+                <button class="filter-btn" data-filter="devops">
+                    <i class="fab fa-docker me-2"></i>DevOps
+                </button>
+                <button class="filter-btn" data-filter="backend">
+                    <i class="fas fa-server me-2"></i>Backend
+                </button>
+                <button class="filter-btn" data-filter="database">
+                    <i class="fas fa-database me-2"></i>Database
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Posts Grid -->
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row g-4" id="blogGrid">
+                
+                <!-- Blog Post 1 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="architecture">
+                    <a href="blog-clean-architecture.html" class="text-decoration-none">
+                        <div class="bento-card blog-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
+                                    <i class="fas fa-layer-group me-1"></i>Architecture
+                                </span>
+                                <small class="text-secondary">5 dk okuma</small>
+                            </div>
+                            <h4 class="fw-bold mb-3">Neden Clean Architecture Öğrenmeliyiz?</h4>
+                            <p class="text-secondary mb-4">
+                                Modern yazılım projelerinde Clean Architecture'ın önemi ve uygulama prensipleri üzerine 
+                                kapsamlı bir rehber.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="tech-tag">Clean Code</span>
+                                <span class="tech-tag">SOLID</span>
+                                <span class="tech-tag">Best Practices</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-semibold">
+                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
+                                </span>
+                                <small class="text-secondary">15 Ocak 2026</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Blog Post 2 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100" data-category="performance">
+                    <a href="#" class="text-decoration-none">
+                        <div class="bento-card blog-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill">
+                                    <i class="fas fa-tachometer-alt me-1"></i>Performance
+                                </span>
+                                <small class="text-secondary">4 dk okuma</small>
+                            </div>
+                            <h4 class="fw-bold mb-3">Laravel'de N+1 Problemi ve Çözümü</h4>
+                            <p class="text-secondary mb-4">
+                                Database query optimizasyonu ve Eloquent ORM'de eager loading teknikleri ile performans 
+                                iyileştirme yöntemleri.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="tech-tag">Laravel</span>
+                                <span class="tech-tag">Eloquent</span>
+                                <span class="tech-tag">Performance</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-semibold">
+                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
+                                </span>
+                                <small class="text-secondary">22 Ocak 2026</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Blog Post 3 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200" data-category="devops">
+                    <a href="#" class="text-decoration-none">
+                        <div class="bento-card blog-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill">
+                                    <i class="fab fa-docker me-1"></i>DevOps
+                                </span>
+                                <small class="text-secondary">6 dk okuma</small>
+                            </div>
+                            <h4 class="fw-bold mb-3">Docker Kullanmadan Önce Bilinmesi Gerekenler</h4>
+                            <p class="text-secondary mb-4">
+                                Container teknolojisine giriş ve Docker ile modern deployment workflows için 
+                                başlangıç rehberi.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="tech-tag">Docker</span>
+                                <span class="tech-tag">Containers</span>
+                                <span class="tech-tag">DevOps</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-semibold">
+                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
+                                </span>
+                                <small class="text-secondary">28 Ocak 2026</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Blog Post 4 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="backend">
+                    <a href="#" class="text-decoration-none">
+                        <div class="bento-card blog-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">
+                                    <i class="fas fa-server me-1"></i>Backend
+                                </span>
+                                <small class="text-secondary">7 dk okuma</small>
+                            </div>
+                            <h4 class="fw-bold mb-3">RESTful API Tasarım Prensipleri</h4>
+                            <p class="text-secondary mb-4">
+                                Profesyonel REST API'ler tasarlamak için bilmeniz gereken temel prensipler 
+                                ve best practices.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="tech-tag">REST API</span>
+                                <span class="tech-tag">HTTP</span>
+                                <span class="tech-tag">Backend</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-semibold">
+                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
+                                </span>
+                                <small class="text-secondary">05 Şubat 2026</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Blog Post 5 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100" data-category="database">
+                    <a href="#" class="text-decoration-none">
+                        <div class="bento-card blog-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill">
+                                    <i class="fas fa-database me-1"></i>Database
+                                </span>
+                                <small class="text-secondary">8 dk okuma</small>
+                            </div>
+                            <h4 class="fw-bold mb-3">Database İndexleme Stratejileri</h4>
+                            <p class="text-secondary mb-4">
+                                SQL veritabanlarında performans için doğru indexleme stratejileri ve 
+                                query optimization teknikleri.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Indexing</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-semibold">
+                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
+                                </span>
+                                <small class="text-secondary">10 Şubat 2026</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Blog Post 6 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200" data-category="backend">
+                    <a href="#" class="text-decoration-none">
+                        <div class="bento-card blog-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">
+                                    <i class="fas fa-server me-1"></i>Backend
+                                </span>
+                                <small class="text-secondary">6 dk okuma</small>
+                            </div>
+                            <h4 class="fw-bold mb-3">JWT Authentication Nasıl Çalışır?</h4>
+                            <p class="text-secondary mb-4">
+                                Modern web uygulamalarında JWT token tabanlı authentication sistemlerinin 
+                                çalışma prensibi ve güvenlik önerileri.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="tech-tag">JWT</span>
+                                <span class="tech-tag">Security</span>
+                                <span class="tech-tag">Authentication</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-semibold">
+                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
+                                </span>
+                                <small class="text-secondary">18 Şubat 2026</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Blog Post 7 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="architecture">
+                    <a href="#" class="text-decoration-none">
+                        <div class="bento-card blog-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
+                                    <i class="fas fa-layer-group me-1"></i>Architecture
+                                </span>
+                                <small class="text-secondary">9 dk okuma</small>
+                            </div>
+                            <h4 class="fw-bold mb-3">Repository Pattern ve Unit of Work</h4>
+                            <p class="text-secondary mb-4">
+                                Data access layer'ı soyutlamak ve test edilebilirliği artırmak için 
+                                Repository ve Unit of Work pattern kullanımı.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="tech-tag">Design Patterns</span>
+                                <span class="tech-tag">Repository</span>
+                                <span class="tech-tag">Testing</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-semibold">
+                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
+                                </span>
+                                <small class="text-secondary">25 Şubat 2026</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Blog Post 8 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100" data-category="devops">
+                    <a href="#" class="text-decoration-none">
+                        <div class="bento-card blog-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill">
+                                    <i class="fab fa-docker me-1"></i>DevOps
+                                </span>
+                                <small class="text-secondary">5 dk okuma</small>
+                            </div>
+                            <h4 class="fw-bold mb-3">Docker Compose ile Development Environment</h4>
+                            <p class="text-secondary mb-4">
+                                Docker Compose kullanarak tutarlı ve paylaşılabilir development 
+                                environment'ları oluşturma rehberi.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="tech-tag">Docker</span>
+                                <span class="tech-tag">Docker Compose</span>
+                                <span class="tech-tag">Development</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-semibold">
+                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
+                                </span>
+                                <small class="text-secondary">01 Mart 2026</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Blog Post 9 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200" data-category="performance">
+                    <a href="#" class="text-decoration-none">
+                        <div class="bento-card blog-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill">
+                                    <i class="fas fa-tachometer-alt me-1"></i>Performance
+                                </span>
+                                <small class="text-secondary">7 dk okuma</small>
+                            </div>
+                            <h4 class="fw-bold mb-3">Redis ile Caching Stratejileri</h4>
+                            <p class="text-secondary mb-4">
+                                Uygulama performansını artırmak için Redis caching stratejileri ve 
+                                best practices üzerine detaylı inceleme.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="tech-tag">Redis</span>
+                                <span class="tech-tag">Caching</span>
+                                <span class="tech-tag">Performance</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-semibold">
+                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
+                                </span>
+                                <small class="text-secondary">08 Mart 2026</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" data-aos="fade-up">
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link"><i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="bento-card text-center" data-aos="fade-up">
+                        <div class="card-icon mx-auto">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="fw-bold mb-3">Yeni Yazılardan Haberdar Olun</h3>
+                        <p class="text-secondary mb-4">
+                            Backend development ve clean architecture hakkında yeni yazılar yayınlandığında 
+                            ilk siz haberdar olun.
+                        </p>
+                        <form class="row g-3 justify-content-center">
+                            <div class="col-md-7">
+                                <input type="email" class="form-control" placeholder="email@example.com">
+                            </div>
+                            <div class="col-md-auto">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-paper-plane me-2"></i>Abone Ol
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon icon moon"></i>
+        <i class="fas fa-sun icon sun"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4" data-aos="fade-up">
+                    <h5 class="fw-bold mb-3 gradient-text">Aybars.dev</h5>
+                    <p class="text-secondary">
+                        Sürekli öğrenen, gelişen ve backend sistemler üzerine çalışan bilgisayar mühendisliği öğrencisi.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+                    <h6 class="fw-bold mb-3">Navigasyon</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="portfolio.html#about" class="text-secondary text-decoration-none">Hakkımda</a></li>
+                        <li class="mb-2"><a href="projects.html" class="text-secondary text-decoration-none">Projeler</a></li>
+                        <li class="mb-2"><a href="blog.html" class="text-secondary text-decoration-none">Blog</a></li>
+                        <li class="mb-2"><a href="portfolio.html#contact" class="text-secondary text-decoration-none">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+                    <h6 class="fw-bold mb-3">Kategoriler</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Architecture</a></li>
+                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Performance</a></li>
+                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">DevOps</a></li>
+                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Backend</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <h6 class="fw-bold mb-3">İletişim</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2 text-secondary">
+                            <i class="fas fa-envelope me-2"></i>aybars@example.com
+                        </li>
+                        <li class="mb-2 text-secondary">
+                            <i class="fas fa-map-marker-alt me-2"></i>Malatya, Türkiye
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 border-secondary border-opacity-25">
+            <div class="text-center text-secondary">
+                <p class="mb-0">
+                    © 2026 Aybars Şalvarcı. Tüm hakları saklıdır.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const cursorElements = document.querySelectorAll('a, button, .bento-card, .filter-btn');
+
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+
+        cursorElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll Progress Bar
+        const scrollProgress = document.getElementById('scrollProgress');
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            scrollProgress.style.width = scrolled + '%';
+        });
+
+        // Loading Screen
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+            }, 1000);
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+        });
+
+        // Filter Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const blogPosts = document.querySelectorAll('#blogGrid > div');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter posts
+                blogPosts.forEach(post => {
+                    if (filter === 'all' || post.dataset.category === filter) {
+                        post.style.display = 'block';
+                        setTimeout(() => {
+                            post.style.opacity = '1';
+                            post.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        post.style.opacity = '0';
+                        post.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            post.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

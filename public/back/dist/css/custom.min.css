@@ -1,0 +1,309 @@
+/* === Aybars.dev Admin Theme - Ultimate Clean Version === */
+
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #8b5cf6;
+    --accent: #ec4899;
+    --success: #10b981;
+
+    /* Gri tonlarından tamamen arındırılmış arka planlar */
+    --admin-bg: #0a0a0f;
+    --admin-card: rgba(15, 15, 25, 0.7); /* Şeffaflık artırıldı */
+    --admin-border: rgba(139, 92, 246, 0.15);
+    --admin-glass: rgba(255, 255, 255, 0.03);
+
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* 1. Tüm Gri Alanları Sıfırla */
+.dark-mode,
+.content-wrapper,
+.main-footer,
+.main-header,
+.main-sidebar,
+.nav-sidebar,
+.card-body,
+.modal-content {
+    background-color: var(--admin-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+/* 2. Content Wrapper & Sayfa Yapısı */
+.content-wrapper {
+    background: transparent !important; /* Arka plandaki animated-bg'yi görmeni sağlar */
+    border: none !important;
+}
+
+/* 3. Navbar (Üst Menü) */
+.main-header.navbar {
+    background: rgba(10, 10, 15, 0.8) !important;
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--admin-border) !important;
+}
+
+/* 4. Sidebar (Yan Menü) */
+.main-sidebar {
+    background: rgba(5, 5, 10, 0.95) !important;
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--admin-border) !important;
+}
+
+/* 5. Kartlar (Bento Grid Tasarımı) */
+.card {
+    background: var(--admin-card) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: 20px !important;
+    box-shadow: var(--shadow-lg) !important;
+    backdrop-filter: blur(12px);
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background: transparent !important;
+    border-bottom: 1px solid var(--admin-border) !important;
+    padding: 1.25rem;
+}
+
+/* 6. İstatistik Kutuları (Info Boxes) */
+.info-box {
+    background: rgba(20, 20, 30, 0.6) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: 18px !important;
+    backdrop-filter: blur(10px);
+}
+
+.info-box-icon {
+    border-radius: 14px !important;
+    background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+    color: #fff !important;
+}
+
+/* 7. Tablo Düzenlemeleri */
+.table {
+    background: transparent !important;
+}
+
+.table thead th {
+    border-bottom: 1px solid var(--admin-border) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.table td {
+    border-top: 1px solid var(--admin-border) !important;
+}
+
+/* 8. Menü Aktif Durumu */
+.nav-sidebar .nav-link.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4) !important;
+}
+
+/* 9. Küçük Detaylar (Breadcrumb, Footer vb.) */
+.breadcrumb {
+    background: transparent !important;
+}
+
+.main-footer {
+    border-top: 1px solid var(--admin-border) !important;
+    background: rgba(10, 10, 15, 0.9) !important;
+}
+
+/* AdminLTE'nin Default Gri Gölgelerini Temizle */
+.elevation-4, .elevation-2, .shadow {
+    box-shadow: var(--shadow-lg) !important;
+}
+
+/* === Modern Neon Loader Styles === */
+
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--admin-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-container {
+    text-align: center;
+}
+
+.main-loader {
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(99, 102, 241, 0.1);
+    border-top: 3px solid var(--primary);
+    border-right: 3px solid var(--secondary);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    position: relative;
+    animation: spin 1s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;
+    /* Neon Parlama Efekti */
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+}
+
+.main-loader::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--accent);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: spin 2s linear infinite reverse;
+}
+
+.loader-text {
+    color: var(--text-secondary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Animasyon Tanımları */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: scale(0.98); }
+    50% { opacity: 1; transform: scale(1); color: var(--primary); }
+}
+
+.content-wrapper {
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(99,102,241,.08),
+            #07070c 70%
+        ) !important;
+}
+
+.content-wrapper .card {
+    background: linear-gradient(
+        180deg,
+        rgba(20,20,35,.95),
+        rgba(12,12,20,.95)
+    ) !important;
+
+    border: 1px solid rgba(139,92,246,.25) !important;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.45),
+        0 0 0 1px rgba(99,102,241,.05),
+        0 0 40px rgba(99,102,241,.12) !important;
+
+    position: relative;
+}
+
+.content-wrapper .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        circle at top,
+        rgba(99,102,241,.12),
+        transparent 65%
+    );
+    pointer-events: none;
+}
+
+.content-wrapper .card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.6),
+        0 0 60px rgba(99,102,241,.18);
+}
+
+.content-wrapper .card-header {
+    background: rgba(255,255,255,.02) !important;
+    border-bottom: 1px solid rgba(139,92,246,.2) !important;
+}
+
+.content-wrapper .card::after {
+    content: '';
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: -12px;
+    height: 20px;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0,0,0,.65),
+        transparent 70%
+    );
+    filter: blur(12px);
+    z-index: -1;
+}
+
+/* Hata Mesajı Konteynırı */
+.invalid-feedback-custom {
+    display: flex;
+    align-items: center;
+    color: #ff4d4d; /* Modern canlı kırmızı */
+    font-size: 0.85rem;
+    margin-top: 8px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: rgba(255, 77, 77, 0.1); /* Hafif kırmızı arka plan */
+    border-left: 3px solid #ff4d4d;
+    animation: slideDown 0.3s ease-out;
+    box-shadow: 0 4px 15px rgba(255, 77, 77, 0.05);
+}
+
+/* Giriş alanı hata durumunda parlasın */
+.form-control.is-invalid {
+    border-color: #ff4d4d !important;
+    box-shadow: 0 0 8px rgba(255, 77, 77, 0.2) !important;
+}
+
+/* Animasyon */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Disabled (Devre Dışı) Input Tasarımı */
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: rgba(45, 50, 68, 0.4) !important;
+    color: rgba(248, 250, 252, 0.3) !important;
+    border-color: rgba(139, 92, 246, 0.05) !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+
+    pointer-events: none;
+    box-shadow: none !important;
+    transform: none !important;
+
+    backdrop-filter: blur(2px);
+}
+
+.form-group:has(input:disabled) label {
+    color: var(--text-muted) !important;
+    opacity: 0.6;
+}
+
