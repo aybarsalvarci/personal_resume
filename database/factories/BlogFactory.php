@@ -21,8 +21,10 @@ class BlogFactory extends Factory
         $title = $this->faker->unique()->sentence();
         return [
             'category_id' => BlogCategory::factory(),
+            'image' => $this->faker->imageUrl(800),
             'title' => $title,
             'slug' => str()->slug($title),
+            'status' => $this->faker->randomElement(['published', 'draft']),
             'meta_description' => $this->faker->sentence(),
             'meta_keywords' => $this->faker->sentence(),
             'content' => $this->faker->paragraph(),

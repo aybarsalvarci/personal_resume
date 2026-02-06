@@ -14,10 +14,12 @@ class Helpers
         $imageTags = $dom->getElementsByTagName('img');
 
         $images = [];
-
         foreach ($imageTags as $imageTag) {
             $src = $imageTag->getAttribute('src');
-            $images[] = str_replace(url("/storage"), "", $src);
+
+            $path = preg_replace('/^.*\/storage\//', '', $src);
+
+            $images[] = ltrim($path, '/');
         }
 
         return $images;

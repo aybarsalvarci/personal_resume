@@ -143,16 +143,18 @@ class ProjectController extends Controller
 
         try {
 
+            // delete from database
             $project->delete();
 
+            // delete content images
             $images = Helpers::extractImagesFromEditor($project->description);
-
             foreach ($images as $image) {
                 if (Storage::disk('public')->exists($image)) {
                     Storage::disk('public')->delete($image);
                 }
             }
 
+            // delete thumbnail
             if (Storage::disk('public')->exists($project->image)) {
                 Storage::disk('public')->delete($project->image);
             }

@@ -55,6 +55,16 @@
                     </a>
                 </li>
 
+
+                <li class="nav-item ">
+                    <a href="{{route('admin.blogs.index')}}" class="nav-link {{request()->routeIs('admin.blogs.*') ? 'active' : ''}}">
+                        <i class="nav-icon fa fa-file"></i>
+                        <p>
+                            Bloglar
+                        </p>
+                    </a>
+                </li>
+
 {{--                <li class="nav-item menu-open">--}}
 {{--                    <a href="#" class="nav-link active">--}}
 {{--                        <i class="nav-icon fas fa-tachometer-alt"></i>--}}

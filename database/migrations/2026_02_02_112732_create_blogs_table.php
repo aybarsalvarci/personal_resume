@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
+            $table->string('image');
             $table->string('title');
             $table->string('slug');
+            $table->enum('status', ['published', 'draft'])->default('draft');
             $table->text('meta_description');
             $table->text('meta_keywords');
             $table->text('content');
