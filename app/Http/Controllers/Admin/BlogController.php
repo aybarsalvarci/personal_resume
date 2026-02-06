@@ -28,7 +28,12 @@ class BlogController extends Controller
                 ->orWhere('slug', 'like', '%' . $request->search . '%');
         }
 
-        $blogs = $query->with('category')->latest()->paginate(10);
+        $blogs = $query
+            ->with('category')
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
         return view('admin.blog.index', compact('blogs'));
     }
 

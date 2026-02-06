@@ -518,28 +518,38 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
                     <div class="bento-card">
-                        <form id="contactForm">
+                        <form id="contactForm" method="post">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label text-secondary fw-semibold">Adınız</label>
-                                    <input type="text" class="form-control" placeholder="John Doe" required>
+                                    <input type="text" class="form-control" placeholder="John Doe" name="name"
+                                           id="name">
+                                    <div class="error-msg text-danger small mt-1" id="error-name"></div>
                                 </div>
+
                                 <div class="col-md-6">
                                     <label class="form-label text-secondary fw-semibold">Email</label>
-                                    <input type="email" class="form-control" placeholder="john@example.com" required>
+                                    <input type="email" class="form-control" placeholder="john@example.com" name="email"
+                                           id="email">
+                                    <div class="error-msg text-danger small mt-1" id="error-email"></div>
                                 </div>
+
                                 <div class="col-12">
                                     <label class="form-label text-secondary fw-semibold">Konu</label>
-                                    <input type="text" class="form-control"
-                                           placeholder="Projeniz hakkında konuşmak istiyorum" required>
+                                    <input type="text" class="form-control" name="subject" id="subject"
+                                           placeholder="Proje...">
+                                    <div class="error-msg text-danger small mt-1" id="error-subject"></div>
                                 </div>
+
                                 <div class="col-12">
                                     <label class="form-label text-secondary fw-semibold">Mesajınız</label>
-                                    <textarea class="form-control" rows="5"
-                                              placeholder="Mesajınızı buraya yazın..." required></textarea>
+                                    <textarea class="form-control" rows="5" name="message" id="message"
+                                              placeholder="Mesajınız..."></textarea>
+                                    <div class="error-msg text-danger small mt-1" id="error-message"></div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill">
+                                    <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill"
+                                            id="submitContactBtn">
                                         <i class="fas fa-paper-plane me-2"></i>Mesaj Gönder
                                     </button>
                                 </div>
@@ -554,23 +564,58 @@
 
 @push('js')
     <script>
-        // Contact Form
-        const form = document.getElementById('contactForm');
+        $(document).ready(function () {
+            $('#submitContactBtn').click(function (event) {
+                event.preventDefault();
 
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
+                let btn = $(this);
+                let form = $('#contactForm');
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Mesaj gönderildi!',
-                text: 'En kısa sürede sana dönüş yapacağım.',
-                confirmButtonText: 'Tamam',
-                confirmButtonColor: '#6366f1',
-                background: getComputedStyle(document.body).getPropertyValue('--card-bg'),
-                color: getComputedStyle(document.body).getPropertyValue('--text-primary')
+                $('.error-msg').text('');
+                $('.form-control').removeClass('is-invalid');
+                btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i>Gönderiliyor...');
+
+                let data = form.serialize();
+
+                $.ajax({
+                    url: "{{route('contact')}}",
+                    method: "POST",
+                    data: data,
+                    headers: {
+                        "X-CSRF-TOKEN": "{{csrf_token()}}",
+                        "Accept": "application/json"
+                    },
+                    success: function (resp) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Mesaj gönderildi!',
+                            text: 'En kısa sürede sana dönüş yapacağım.',
+                            confirmButtonColor: '#6366f1'
+                        });
+                        form[0].reset();
+                    },
+                    error: function(resp) {
+                        if(resp.status === 422) {
+                            let errors = resp.responseJSON.errors;
+
+                            $.each(errors, function (key, value) {
+                                $(`[name="${key}"]`).addClass('is-invalid');
+
+                                $(`#error-${key}`).text(value[0]);
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Hata!',
+                                text: 'Sistem kaynaklı bir hata oluştu. Lütfen sonra tekrar deneyin.'
+                            });
+                        }
+                    },
+                    complete: function() {
+                        btn.prop('disabled', false).html('<i class="fas fa-paper-plane me-2"></i>Mesaj Gönder');
+                    }
+                });
             });
-
-            form.reset();
         });
     </script>
 @endpush

@@ -6,11 +6,14 @@ use App\Http\Controllers\Admin\ProjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\HomeController;
 
+// ===================== Front Routes =====================
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/projects', [HomeController::class, 'projects'])->name('projects');
 Route::get('/get-projects/{slug}/{count?}', [HomeController::class, 'getProjects'])->name('get-projects');
+Route::post('/contact', [HomeController::class, 'contact'])->name('contact');
 
 
+// ===================== Admin Panel Routes =====================
 Route::prefix('/admin')->name('admin.')->group(function() {
     Route::get("/", [DashboardController::class, 'dashboard'])->name('dashboard');
 

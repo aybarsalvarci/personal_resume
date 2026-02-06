@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Contact\CreateRequest;
 use App\Models\Blog;
+use App\Models\Contact;
 use App\Models\Project;
 use App\Models\ProjectCategory;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -51,5 +54,19 @@ class HomeController extends Controller
 
         $view = view('front.partials.project-list', compact('projects'))->render();
         return response()->json(['html' => $view]);
+    }
+
+    public function contact(CreateRequest $request)
+    {
+        try{
+            Contact::create($request->validated());
+        }
+        catch(\Exception $e)
+        {
+            Log::error("İletişim formunda bir hata oluştu: " . $e->getMessage(), $e->getTrace());
+            return response(500);
+        }
+
+        return response(200);
     }
 }
