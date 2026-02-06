@@ -21,8 +21,3 @@ Route::prefix('/admin')->name('admin.')->group(function() {
     Route::resource('/blogs', BlogController::class)->except('show');
 });
 
-
-Route::get('/test-log', function() {
-    \Illuminate\Support\Facades\Log::info('Log sistemi çalışıyor!');
-    return 'Log kontrol edildi.';
-});
