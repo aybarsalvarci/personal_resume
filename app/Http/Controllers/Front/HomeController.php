@@ -32,34 +32,38 @@ class HomeController extends Controller
         return view('front.homepage', compact('projects', 'blogs'));
     }
 
-    public function projects()
+    public function projects(Request $request)
     {
         $categories = ProjectCategory::orderBy('order', 'ASC')->get();
-        $projects = Project::orderBy('created_at', 'desc')
-            ->paginate(10);
+
+        $projects = Project::with(['category' => fn($q) => $q->select('id', 'name')])
+            //keyword filter
+            ->when($request->filled('keyword'), function ($query) use ($request) {
+                $query->where(function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->keyword . '%')
+                        ->orWhere('slug', 'like', '%' . $request->keyword . '%')
+                        ->orWhere('description', 'like', '%' . $request->keyword . '%');
+                });
+            })
+
+            // category filter
+            ->when($request->filled('category') and $request->get('category') != 'all', function ($query) use ($request) {
+                $query->whereHas('category', function ($q) use ($request) {
+                    $q->where('slug', $request->get('category'));
+                });
+            })
+
+            // status filter
+            ->when($request->filled('status') and $request->get('status') != 'all', function ($query) use ($request) {
+                    $query->where('status', $request->status);
+            })
+
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view('front.projects', compact('projects', 'categories'));
     }
-
-    public function getProjects(string $slug, int $count = 0)
-    {
-
-        $query = Project::query();
-
-        if ($slug != 'all') {
-            $category = ProjectCategory::where('slug', $slug)->firstOrFail();
-            $query->where('category_id', $category->id);
-        }
-
-        $projects = $query->orderBy('created_at', 'DESC')
-            ->skip($count)
-            ->take(4)
-            ->get();
-
-        $view = view('front.partials.project-list', compact('projects'))->render();
-        return response()->json(['html' => $view]);
-    }
-
 
     public function blogs(Request $request)
     {

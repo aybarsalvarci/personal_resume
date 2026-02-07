@@ -351,7 +351,7 @@
                 @endforeach
             </div>
             <div class="text-center mt-5" data-aos="fade-up">
-                <a href="projects.html" class="btn btn-outline-light btn-lg rounded-pill px-5">
+                <a href="{{route('projects')}}" class="btn btn-outline-light btn-lg rounded-pill px-5">
                     <i class="fas fa-folder-open me-2"></i>Tüm Projeleri Gör
                 </a>
             </div>

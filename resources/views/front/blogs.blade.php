@@ -170,7 +170,6 @@
                                 <h5 class="widget-title">
                                     <i class="fas fa-tags me-2 text-primary"></i>Kategoriler
                                 </h5>
-                                {{-- Kategori ID'sini tutan gizli input --}}
                                 <input type="hidden" name="category" id="selectedCategory" value="{{ request('category', 'all') }}">
 
                                 <ul class="category-list list-unstyled m-0">
