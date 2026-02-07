@@ -17,26 +17,8 @@
     <meta name="revisit-after" content="7 days">
     <meta name="rating" content="general">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://aybars.dev/">
-    <meta property="og:title" content="Aybars Şalvarcı | Backend Developer & Bilgisayar Mühendisliği Öğrencisi">
-    <meta property="og:description"
-        content="Backend development ve clean architecture odaklı bilgisayar mühendisliği öğrencisi. Laravel, Python, Docker ile modern web sistemleri geliştiriyorum.">
-    <meta property="og:image" content="https://aybars.dev/og-image.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="tr_TR">
-    <meta property="og:site_name" content="Aybars Şalvarcı Portfolio">
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://aybars.dev/">
-    <meta name="twitter:title" content="Aybars Şalvarcı | Backend Developer">
-    <meta name="twitter:description"
-        content="Backend development ve clean architecture odaklı bilgisayar mühendisliği öğrencisi.">
-    <meta name="twitter:image" content="https://aybars.dev/twitter-image.jpg">
-    <meta name="twitter:creator" content="@aybarsdev">
+    @stack('og')
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://aybars.dev/">

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\CreateRequest;
 use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\Contact;
 use App\Models\Project;
 use App\Models\ProjectCategory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
@@ -20,6 +22,9 @@ class HomeController extends Controller
             ->get();
 
         $blogs = Blog::where('isFeatured', true)
+            ->with(['category' => function ($query) {
+                $query->select('name', 'id');
+            }])
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
@@ -41,8 +46,7 @@ class HomeController extends Controller
 
         $query = Project::query();
 
-        if($slug != 'all')
-        {
+        if ($slug != 'all') {
             $category = ProjectCategory::where('slug', $slug)->firstOrFail();
             $query->where('category_id', $category->id);
         }
@@ -56,13 +60,42 @@ class HomeController extends Controller
         return response()->json(['html' => $view]);
     }
 
+
+    public function blogs(Request $request)
+    {
+        $categories = BlogCategory::withCount('blogs')->orderBy('order', 'ASC')->get();
+
+        $totalCount = Blog::count();
+
+        $blogs = Blog::with(['category' => fn($q) => $q->select('id', 'name')])
+            ->when($request->has('keyword'), function ($query) use ($request) {
+                $query->where(function ($q) use ($request) {
+                    $q->where('title', 'like', '%' . $request->keyword . '%')
+                        ->orWhere('content', 'like', '%' . $request->keyword . '%')
+                        ->orWhere('slug', 'like', '%' . $request->keyword . '%');
+                });
+            })
+            ->when($request->has('category') and $request->get('category') != 'all', function ($query) use ($request) {
+                $query->where('category_id', $request->category);
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('front.blogs', compact('blogs', 'categories', 'totalCount'));
+    }
+
+    public function blogDetail(string $slug)
+    {
+        $blog = Blog::whereSlug($slug)->firstOrFail();
+        return view('front.blog-detail', compact('blog'));
+    }
+
     public function contact(CreateRequest $request)
     {
-        try{
+        try {
             Contact::create($request->validated());
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             Log::error("İletişim formunda bir hata oluştu: " . $e->getMessage(), $e->getTrace());
             return response(500);
         }

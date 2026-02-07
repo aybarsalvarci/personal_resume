@@ -2,7 +2,23 @@
 
 @section('title', "")
 
-@push('css') @endpush
+@push('css')
+    <style>
+        .blog-card:hover .blog-image-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .blog-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .blog-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-5px);
+        }
+    </style>
+@endpush
 
 @section('content')
     <!-- Hero Section -->
@@ -352,78 +368,51 @@
                 </p>
             </div>
             <div class="row g-4">
-                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <a href="blog-clean-architecture.html" class="text-decoration-none">
-                        <div class="bento-card blog-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
-                                    Architecture
-                                </span>
-                                <small class="text-secondary">5 dk okuma</small>
+                @foreach($blogs as $blog)
+                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{$loop->iteration * 100}}">
+                        <a href="{{ route('blog.detail', $blog->slug) }}" class="text-decoration-none">
+                            <div
+                                class="bento-card blog-card p-0 overflow-hidden">
+
+                                <div class="blog-image-wrapper" style="height: 200px; overflow: hidden;">
+                                    <img
+                                        src="{{asset(Storage::url($blog->image))}}"
+                                        alt="{{$blog->title}}"
+                                        class="w-100 h-100 object-fit-cover transition-all"
+                                        style="transition: transform 0.5s ease;">
+                                </div>
+
+                                <div class="p-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
+                                            {{$blog->category->name}}
+                                        </span>
+                                        <small class="text-secondary">
+                                            <i class="far fa-clock me-1"></i> {{ $blog->reading_time ?? '5' }} dk
+                                        </small>
+                                    </div>
+
+                                    <h4 class="fw-bold mb-3 text-white">{{$blog->title}}</h4>
+
+                                    <p class="text-secondary mb-4">
+                                        {{str(strip_tags($blog->content))->limit(100, '...')}}
+                                    </p>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-primary fw-semibold">
+                                            Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
+                                        </span>
+                                        <small
+                                            class="text-secondary">{{$blog->created_at->translatedFormat("d M Y")}}</small>
+                                    </div>
+                                </div>
                             </div>
-                            <h4 class="fw-bold mb-3">Neden Clean Architecture Öğrenmeliyiz?</h4>
-                            <p class="text-secondary mb-4">
-                                Modern yazılım projelerinde Clean Architecture'ın önemi ve uygulama prensipleri üzerine
-                                kapsamlı bir rehber.
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="text-primary fw-semibold">
-                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
-                                </span>
-                                <small class="text-secondary">15 Ocak 2026</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                    <a href="blog.html" class="text-decoration-none">
-                        <div class="bento-card blog-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill">
-                                    Performance
-                                </span>
-                                <small class="text-secondary">4 dk okuma</small>
-                            </div>
-                            <h4 class="fw-bold mb-3">Laravel'de N+1 Problemi</h4>
-                            <p class="text-secondary mb-4">
-                                Database query optimizasyonu ve Eloquent ORM'de eager loading teknikleri ile performans
-                                iyileştirme.
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="text-primary fw-semibold">
-                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
-                                </span>
-                                <small class="text-secondary">22 Ocak 2026</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                    <a href="blog.html" class="text-decoration-none">
-                        <div class="bento-card blog-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill">
-                                    DevOps
-                                </span>
-                                <small class="text-secondary">6 dk okuma</small>
-                            </div>
-                            <h4 class="fw-bold mb-3">Docker Kullanmadan Önce Bilinmesi Gerekenler</h4>
-                            <p class="text-secondary mb-4">
-                                Container teknolojisine giriş ve Docker ile modern deployment workflows için başlangıç
-                                rehberi.
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="text-primary fw-semibold">
-                                    Devamını Oku <i class="fas fa-arrow-right ms-2"></i>
-                                </span>
-                                <small class="text-secondary">28 Ocak 2026</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                @endforeach
             </div>
             <div class="text-center mt-5" data-aos="fade-up">
-                <a href="blog.html" class="btn btn-outline-light btn-lg rounded-pill px-5">
+                <a href="{{route('blogs')}}" class="btn btn-outline-light btn-lg rounded-pill px-5">
                     <i class="fas fa-book-open me-2"></i>Tüm Yazıları Gör
                 </a>
             </div>
@@ -594,8 +583,8 @@
                         });
                         form[0].reset();
                     },
-                    error: function(resp) {
-                        if(resp.status === 422) {
+                    error: function (resp) {
+                        if (resp.status === 422) {
                             let errors = resp.responseJSON.errors;
 
                             $.each(errors, function (key, value) {
@@ -611,7 +600,7 @@
                             });
                         }
                     },
-                    complete: function() {
+                    complete: function () {
                         btn.prop('disabled', false).html('<i class="fas fa-paper-plane me-2"></i>Mesaj Gönder');
                     }
                 });
