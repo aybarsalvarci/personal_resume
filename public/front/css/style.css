@@ -901,3 +901,44 @@ body.light-mode .swal2-popup {
     display: flex;
     flex-direction: column;
 }
+
+/* =========================================
+   LOGO STİLLERİ (Header & Footer)
+   ========================================= */
+
+/* Header Logo */
+.navbar-brand img {
+    height: 40px; /* Logoya ideal bir yükseklik ver */
+    width: auto;  /* Genişliği otomatik ayarla (orantıyı korur) */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.05); /* Hover olunca hafif büyüt */
+}
+
+/* Mobilde Logoyu Biraz Küçült */
+@media (max-width: 768px) {
+    .navbar-brand img {
+        height: 35px;
+    }
+}
+
+/* Footer Logo */
+footer h5 img {
+    height: 50px; /* Footer logosu genelde headerdan bir tık büyük olur */
+    width: auto;
+    margin-bottom: 1rem;
+    display: inline-block;
+    transition: opacity 0.3s ease;
+}
+
+/* Light Mode Logo Uyumu (Eğer logoların rengi değişmesi gerekiyorsa) */
+/* Örneğin: Siyah logo kullanıyorsan ve dark modda beyaz görünmesi gerekiyorsa: */
+/*
+body:not(.light-mode) .navbar-brand img,
+body:not(.light-mode) footer h5 img {
+    filter: brightness(0) invert(1);
+}
+*/

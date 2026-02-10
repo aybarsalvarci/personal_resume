@@ -1,6 +1,6 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
         <div class="container">
-            <a class="navbar-brand" href="{{route('home')}}">Aybars.dev</a>
+            <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset(Storage::url(config('settings.header_logo')))}}" alt="{{config('settings.title')}} footer logo"></a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -9,7 +9,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{route('home')}}#about">Hakkımda</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('home')}}#expertise">Uzmanlık</a></li>
                     <li class="nav-item"><a class="nav-link {{request()->routeIs('projects') ? 'active' : ''}}" href="{{route('projects')}}">Projeler</a></li>
-                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link {{request()->routeIs('blogs') ? 'active' : ''}}" href="{{route('blogs')}}">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('home')}}#contact">İletişim</a></li>
                     <li class="nav-item ms-lg-2">
                         <a class="btn btn-primary rounded-pill px-4" href="{{route('home')}}#contact">

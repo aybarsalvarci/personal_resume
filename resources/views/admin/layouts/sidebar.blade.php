@@ -74,6 +74,24 @@
                     </a>
                 </li>
 
+                <li class="nav-item ">
+                    <a href="{{route('admin.settings.index')}}" class="nav-link {{request()->routeIs('admin.settings.*') ? 'active' : ''}}">
+                        <i class="nav-icon fa fa-cogs"></i>
+                        <p>
+                            Ayarlar
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="{{route('admin.homepage.index')}}" class="nav-link {{request()->routeIs('admin.homepage.*') ? 'active' : ''}}">
+                        <i class="nav-icon fa fa-cogs"></i>
+                        <p>
+                            Anasayfa Yönetimi
+                        </p>
+                    </a>
+                </li>
+
 {{--                <li class="nav-item menu-open">--}}
 {{--                    <a href="#" class="nav-link active">--}}
 {{--                        <i class="nav-icon fas fa-tachometer-alt"></i>--}}

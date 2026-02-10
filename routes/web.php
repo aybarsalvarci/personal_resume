@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\HomeController;
 
@@ -25,5 +27,9 @@ Route::prefix('/admin')->name('admin.')->group(function() {
     Route::resource('/blogs', BlogController::class)->except('show');
 
     Route::resource('/contacts', ContactController::class)->only('index', 'show', 'destroy');
+
+    Route::resource('/settings', SettingController::class);
+
+    Route::resource('/homepage', HomepageController::class)->only('index', 'update');
 });
 

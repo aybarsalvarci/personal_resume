@@ -1,6 +1,5 @@
 FROM php:8.2-cli
 
-# Sistem kütüphanelerini kur (WebP desteği eklendi)
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -20,4 +19,4 @@ WORKDIR /app
 COPY . .
 
 # Portu aç ve serve et
-CMD php artisan serve --host=0.0.0.0 --port=8000
+CMD php artisan serve --host=0.0.0.0 --port=8001

@@ -1,54 +1,51 @@
-<div class="project-card">
-    <div class="d-flex align-items-start justify-content-between mb-3">
-        <div class="card-icon" style="width: 50px; height: 50px; font-size: 1.2rem;">
+<div class="project-card h-100" data-aos="fade-up">
+    <div class="project-image-box">
+        @if($project->image)
+            <img src="{{ asset('storage/' . $project->image) }}" class="project-main-img" alt="{{$project->name}}">
+        @else
+            <div class="project-img-placeholder">
+                <i class="{{ $project->icon }} opacity-25"></i>
+            </div>
+        @endif
+
+        <div class="badge-overlay-top">
+            <span class="glass-tag">
+                <i class="fas fa-tag"></i> {{ $project->category->name }}
+            </span>
+        </div>
+
+        <div class="action-overlay">
+            <a href="{{ $project->github_url }}" target="_blank" class="glass-btn" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="{{ $project->demo_url }}" target="_blank" class="glass-btn" title="Live"><i class="fas fa-external-link-alt"></i></a>
+        </div>
+
+        <div class="floating-project-icon">
             <i class="{{$project->icon}}"></i>
         </div>
-        <div class="d-flex gap-2">
-            <a href="{{ $project->github_url ?? '#' }}" class="text-primary" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="{{ $project->demo_url ?? '#' }}" class="text-primary" title="Canlı Demo"><i class="fas fa-external-link-alt"></i></a>
+    </div>
+
+    <div class="project-body">
+        <div class="status-box mb-3">
+            @switch($project->status)
+                @case('completed')
+                    <span class="status-chip success"><span class="pulse"></span> Tamamlandı</span> @break
+                @case('in-progress')
+                    <span class="status-chip warning"><span class="pulse"></span> Devam Ediyor</span> @break
+                @case('upcoming')
+                    <span class="status-chip info"><span class="pulse"></span> Yakında</span> @break
+            @endswitch
         </div>
-    </div>
 
-    <div class="mb-2 d-flex flex-wrap gap-2">
-        <span class="badge bg-primary bg-opacity-10 text-primary px-2 py-1 rounded">
-            <i class="fas fa-tag me-1" style="font-size: 0.5rem;"></i> {{ $project->category->name }}
-        </span>
+        <h3 class="project-title-new">{{$project->name}}</h3>
 
-        @switch($project->status)
-            @case('completed')
-                <span class="badge bg-success bg-opacity-10 text-success px-2 py-1 rounded">
-                    <i class="fas fa-check-circle me-1" style="font-size: 0.5rem;"></i> Tamamlandı
-                </span>
-                @break
+        <p class="project-desc-new">
+            {{ str(strip_tags($project->description))->limit(110) }}
+        </p>
 
-            @case('in-progress')
-                <span class="badge bg-warning bg-opacity-10 text-warning px-2 py-1 rounded">
-                    <i class="fas fa-spinner fa-spin me-1" style="font-size: 0.5rem;"></i> Devam Ediyor
-                </span>
-                @break
-
-            @case('upcoming')
-                <span class="badge bg-info bg-opacity-10 text-info px-2 py-1 rounded">
-                    <i class="fas fa-calendar-alt me-1" style="font-size: 0.5rem;"></i> Yakında
-                </span>
-                @break
-
-            @default
-                <span class="badge bg-secondary bg-opacity-10 text-secondary px-2 py-1 rounded">
-                    <i class="fas fa-question-circle me-1" style="font-size: 0.5rem;"></i> Planlandı
-                </span>
-        @endswitch
-    </div>
-
-    <h3 class="project-title">{{$project->name}}</h3>
-
-    <p class="project-description mb-4">
-        {!! $project->description !!}
-    </p>
-
-    <div class="d-flex flex-wrap gap-2 mt-auto">
-        @foreach(explode(',', $project->keys) as $key)
-            <span class="tech-tag">{{trim($key)}}</span>
-        @endforeach
+        <div class="tech-stack-new mt-auto">
+            @foreach(explode(',', $project->keys) as $key)
+                <span class="tech-pill">{{trim($key)}}</span>
+            @endforeach
+        </div>
     </div>
 </div>

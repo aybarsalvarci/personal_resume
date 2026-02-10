@@ -3,122 +3,25 @@
 @section('title', "Teknik Blog | Tüm Yazılar")
 
 @push('css')
-    <style>
-        /* Modern Sidebar - style.css Değişkenleri ile Uyumlu */
-        .filter-sidebar {
-            position: sticky;
-            top: 120px;
-            background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            padding: 25px;
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-lg);
-        }
+    <link rel="stylesheet" href="{{asset('front/css/blogs.css')}}">
+@endpush
 
-        .sidebar-widget { margin-bottom: 30px; }
+@push('og')
+    <meta property="og:type" content="blog">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Teknik Blog - Öğrenme Yolculuğum">
+    <meta property="og:description"
+          content="Backend development ve clean architecture üzerine teknik notlar ve makaleler.">
+    <meta property="og:image" content="{{ asset('front/img/og-blog.jpg') }}">
+    <meta property="og:site_name" content="Aybars.dev">
+    <meta property="og:locale" content="tr_TR">
 
-        .widget-title {
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-        }
-
-        /* Kırmızı Çizgi Yerine Temanın Primary Rengi */
-        .widget-title::before {
-            content: '';
-            width: 4px;
-            height: 18px;
-            background: var(--primary);
-            margin-right: 12px;
-            border-radius: 2px;
-        }
-
-        /* Arama Kutusu Modernize */
-        .modern-search-box {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .modern-search-box .form-control {
-            background: var(--glass) !important;
-            border: 1px solid var(--border) !important;
-            border-radius: 50px;
-            padding: 12px 20px;
-            color: var(--text-primary) !important;
-        }
-
-        .modern-search-box .form-control:focus {
-            border-color: var(--primary) !important;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1) !important;
-        }
-
-        .search-icon-btn {
-            position: absolute;
-            right: 6px;
-            background: var(--primary);
-            border: none;
-            color: #fff;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .search-icon-btn:hover { background: var(--primary-dark); transform: scale(1.1); }
-
-        /* Kaydırılabilir Kategori Listesi */
-        .category-list {
-            max-height: 350px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        /* Şık Scrollbar */
-        .category-list::-webkit-scrollbar { width: 4px; }
-        .category-list::-webkit-scrollbar-track { background: var(--glass); }
-        .category-list::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 10px; }
-
-        .filter-link {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-secondary) !important;
-            text-decoration: none;
-            padding: 10px 15px;
-            background: var(--glass);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            margin-bottom: 8px;
-            border: 1px solid transparent;
-        }
-
-        .filter-link:hover, .filter-link.active {
-            background: rgba(99, 102, 241, 0.1);
-            color: var(--primary) !important;
-            border-color: var(--border-hover);
-            transform: translateX(5px);
-        }
-
-        .filter-link .count {
-            font-size: 0.75rem;
-            background: var(--glass);
-            padding: 2px 8px;
-            border-radius: 20px;
-            color: var(--text-muted);
-        }
-
-        .filter-link.active .count { background: var(--primary); color: #fff; }
-    </style>
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="Teknik Blog - Öğrenme Yolculuğum">
+    <meta property="twitter:description"
+          content="Backend development ve clean architecture üzerine teknik notlar ve makaleler.">
+    <meta property="twitter:image" content="{{ asset('front/img/og-blog.jpg') }}">
 @endpush
 
 @section('content')
@@ -170,7 +73,8 @@
                                 <h5 class="widget-title">
                                     <i class="fas fa-tags me-2 text-primary"></i>Kategoriler
                                 </h5>
-                                <input type="hidden" name="category" id="selectedCategory" value="{{ request('category', 'all') }}">
+                                <input type="hidden" name="category" id="selectedCategory"
+                                       value="{{ request('category', 'all') }}">
 
                                 <ul class="category-list list-unstyled m-0">
                                     <li>
@@ -202,25 +106,30 @@
                     <div class="row g-4" id="blogGrid">
                         @foreach($blogs as $blog)
                             <div class="col-md-6" data-aos="fade-up">
-                                <a href="{{ route('blog.detail', $blog->slug) }}" class="text-decoration-none h-100 d-block">
+                                <a href="{{ route('blog.detail', $blog->slug) }}"
+                                   class="text-decoration-none h-100 d-block">
                                     <div class="bento-card blog-card h-100 p-0 overflow-hidden">
                                         <div class="blog-image-wrapper" style="height: 180px; overflow: hidden;">
                                             <img src="{{ Storage::url($blog->image) }}" class="project-img">
                                         </div>
                                         <div class="p-4">
                                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
+                                            <span
+                                                class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
                                                 {{ $blog->category->name }}
                                             </span>
-                                                <small class="text-secondary">{{ $blog->reading_time ?? '5' }} dk okuma</small>
+                                                <small class="text-secondary">{{ $blog->reading_time ?? '5' }} dk
+                                                    okuma</small>
                                             </div>
                                             <h4 class="fw-bold mb-3 text-white">{{ $blog->title }}</h4>
                                             <p class="text-secondary mb-4">
                                                 {{ str(strip_tags($blog->content))->limit(90) }}
                                             </p>
                                             <div class="mt-auto d-flex justify-content-between align-items-center">
-                                                <span class="text-primary fw-semibold">Oku <i class="fas fa-arrow-right ms-2"></i></span>
-                                                <small class="text-muted">{{ $blog->created_at->translatedFormat('d M Y') }}</small>
+                                                <span class="text-primary fw-semibold">Oku <i
+                                                        class="fas fa-arrow-right ms-2"></i></span>
+                                                <small
+                                                    class="text-muted">{{ $blog->created_at->translatedFormat('d M Y') }}</small>
                                             </div>
                                         </div>
                                     </div>

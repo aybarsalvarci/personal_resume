@@ -1,0 +1,246 @@
+/* =========================================
+   BLOG DETAY SAYFASI STİLLERİ
+   (Master CSS Değişkenleri ile Tam Uyumlu)
+   ========================================= */
+
+/* 1. Başlık Alanı (Article Header) */
+.article-header {
+    padding: 160px 0 60px; /* Navbar çakışmasını önler */
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.article-title {
+    font-size: clamp(2rem, 5vw, 3.5rem); /* Mobilde devasa kalmaması için ayarlandı */
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+    margin: 1.5rem auto;
+    max-width: 950px;
+    color: var(--text-main);
+}
+
+.article-meta {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 2rem;
+}
+
+.article-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--glass);
+    padding: 6px 14px;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+}
+
+.article-meta-item i {
+    color: var(--primary);
+}
+
+/* 2. Kapak Görseli (Cover Image) */
+.article-cover-container {
+    max-width: 1100px;
+    margin: 0 auto 4rem;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.article-cover-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 32px;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease;
+}
+
+.article-cover-img:hover {
+    transform: scale(1.01);
+}
+
+/* 3. Makale İçeriği (Typography) */
+.article-content {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 1.5rem 6rem;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: var(--text-secondary); /* Metin rengi değişkene bağlandı */
+}
+
+/* İçerik Başlıkları */
+.article-content h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 3.5rem 0 1.5rem;
+    color: var(--text-main);
+    border-left: 5px solid var(--primary);
+    padding-left: 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+.article-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+    color: var(--text-main);
+}
+
+.article-content p {
+    margin-bottom: 1.8rem;
+}
+
+/* İçerik Görselleri (Taşmayı Önler) */
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    margin: 2rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+}
+
+/* Linkler */
+.article-content a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px dashed var(--primary);
+    transition: 0.2s;
+}
+
+.article-content a:hover {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+/* 4. Kod Blokları (Syntax Highlighting Uyumlu) */
+.article-content pre {
+    background: var(--card-bg) !important; /* Tema rengine göre değişir */
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 20px;
+    margin: 2.5rem 0;
+    border: 1px solid var(--border);
+    overflow-x: auto;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Satır içi kod (inline code) */
+.article-content p code,
+.article-content li code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--glass);
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    color: var(--primary);
+    font-size: 0.9em;
+    border: 1px solid var(--border);
+}
+
+.article-content pre code {
+    background: transparent;
+    padding: 0;
+    border: none;
+    color: inherit; /* Highlight.js renklerini korur */
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Liste Stilleri */
+.article-content ul,
+.article-content ol {
+    margin-bottom: 2rem;
+    padding-left: 1.5rem;
+}
+
+.article-content li {
+    margin-bottom: 0.8rem;
+    padding-left: 0.5rem;
+}
+
+.article-content li::marker {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* 5. Paylaşım Bölümü (Share Section) */
+.share-section {
+    margin-top: 4rem;
+    padding: 3rem;
+    background: var(--card-bg);
+    border-radius: 28px;
+    border: 1px solid var(--border);
+    text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-lg);
+}
+
+.share-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.share-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0 0.4rem;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.share-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+    border-color: var(--primary);
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+    .article-header {
+        padding: 120px 0 40px;
+    }
+
+    .article-title {
+        font-size: 2rem;
+    }
+
+    .article-cover-img {
+        height: 250px;
+        border-radius: 20px;
+    }
+
+    .article-content {
+        padding: 0 1rem 4rem;
+        font-size: 1.05rem;
+    }
+
+    .article-meta {
+        gap: 0.8rem;
+        flex-direction: column;
+        align-items: center;
+    }
+}

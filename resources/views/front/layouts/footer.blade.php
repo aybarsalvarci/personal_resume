@@ -3,15 +3,22 @@
     <div class="container">
         <div class="row g-4">
             <div class="col-lg-4" data-aos="fade-up">
-                <h5 class="fw-bold mb-3 gradient-text">Aybars.dev</h5>
+                <div class="mb-4">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset(Storage::url(config('settings.footer_logo'))) }}"
+                             alt="{{ config('settings.title') }}"
+                             class="footer-logo">
+                    </a>
+                </div>
                 <p class="text-secondary">
-                    Sürekli öğrenen, gelişen ve backend sistemler üzerine çalışan bilgisayar mühendisliği öğrencisi.
+                    {{config('settings.footer_description')}}
                 </p>
                 <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://github.com/{{config('settings.github')}}" class="social-link"><i
+                            class="fab fa-github"></i></a>
+                    <a href="{{config('settings.linkedin')}}" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="{{config('settings.email')}}" class="social-link"><i class="fas fa-envelope"></i></a>
+                    <a href="{{config('settings.twitter')}}" class="social-link"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
@@ -38,13 +45,13 @@
                 <h6 class="fw-bold mb-3">İletişim</h6>
                 <ul class="list-unstyled">
                     <li class="mb-2 text-secondary">
-                        <i class="fas fa-envelope me-2"></i>aybars@example.com
+                        <i class="fas fa-envelope me-2"></i>{{config('settings.email')}}
                     </li>
                     <li class="mb-2 text-secondary">
-                        <i class="fas fa-map-marker-alt me-2"></i>Malatya, Türkiye
+                        <i class="fas fa-map-marker-alt me-2"></i>{{config('settings.address')}}
                     </li>
                     <li class="mb-2 text-secondary">
-                        <i class="fas fa-clock me-2"></i>Her zaman öğrenmeye açık
+                        <i class="fas fa-clock me-2"></i>{{config('settings.working_hours')}}
                     </li>
                 </ul>
             </div>
@@ -52,8 +59,7 @@
         <hr class="my-4 border-secondary border-opacity-25">
         <div class="text-center text-secondary">
             <p class="mb-0">
-                © 2026 Aybars Şalvarcı. Tüm hakları saklıdır. | Built with <span class="text-danger">❤</span> and
-                <span class="text-primary">Code</span>
+                {{config('settings.footer_text')}}
             </p>
         </div>
     </div>
