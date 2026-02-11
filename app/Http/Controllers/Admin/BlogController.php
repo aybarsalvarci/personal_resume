@@ -56,7 +56,7 @@ class BlogController extends Controller
         // thumbnail upload
         if ($request->hasFile('image')) {
             try {
-                $data['image'] = ImageService::upload($request->file('image'), 'images/blog/thumbnails', 800);
+                $data['image'] = ImageService::uploadWithEncoding($request->file('image'), 'images/blog/thumbnails', 800, 'webp');
             } catch (\Exception $exception) {
                 Log::error("Blog kapak görseli yüklenemedi : " . $exception->getMessage(), $exception->getTrace());
                 return redirect()->back()->with('error', "Kapak görseli yüklenirken bir hata oluştu.");
@@ -118,7 +118,7 @@ class BlogController extends Controller
                     Storage::disk('public')->delete($blog->image);
                 }
 
-                $data['image'] = ImageService::upload($request->file('image'), 'images/blog/thumbnails', 800);
+                $data['image'] = ImageService::uploadWithEncoding($request->file('image'), 'images/blog/thumbnails', 800, 'webp');
             }
         } catch (\Exception $exception) {
             Log::error("Blog kapak görseli güncellenemedi: " . $exception->getMessage(), $exception->getTrace());
@@ -198,7 +198,7 @@ class BlogController extends Controller
 
     public function fileUpload(Request $request)
     {
-        $path = ImageService::upload($request->file('file'), 'images/blog/content', 800);
+        $path = ImageService::uploadWithEncoding($request->file('file'), 'images/blog/content', 800, 'webp');
         return response()->json(['location' => asset(Storage::url($path))]);
     }
 }
