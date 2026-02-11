@@ -1,95 +1,119 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Dashboard')
+@section('title', 'Yönetim Paneli | İstatistikler')
 
 @push('css')
+    <style>
+        /* Daha modern bir görünüm için küçük dokunuşlar */
+        .info-box {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+        }
+        .info-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+    </style>
 @endpush
 
-@section('breadcrumb-title', 'Dashboard')
+@section('breadcrumb-title', 'Genel Bakış')
 @section('breadcrumb-links')
-    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Dashboard v2</li>
+    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="fas fa-home"></i> Anasayfa</a></li>
+    <li class="breadcrumb-item active">Dashboard</li>
 @endsection
 
 @section('content')
-    <!-- Info boxes -->
     <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
-
+            <div class="info-box shadow-sm">
+                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-chart-line"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">CPU Traffic</span>
-                    <span class="info-box-number">
-                  10
-                  <small>%</small>
-                </span>
+                    <span class="info-box-text text-muted">Aktif Oturumlar</span>
+                    <span class="info-box-number text-lg">10 <small>%</small></span>
                 </div>
-                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
         </div>
-        <!-- /.col -->
+
         <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
+            <div class="info-box mb-3 shadow-sm">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-heart"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Likes</span>
-                    <span class="info-box-number">41,410</span>
+                    <span class="info-box-text text-muted">Toplam Beğeni</span>
+                    <span class="info-box-number text-lg">41,410</span>
                 </div>
-                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
         </div>
-        <!-- /.col -->
 
-        <!-- fix for small devices only -->
         <div class="clearfix hidden-md-up"></div>
 
         <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-                            <span class="info-box-icon bg-success elevation-1"><i
-                                    class="fas fa-shopping-cart"></i></span>
-
+            <div class="info-box mb-3 shadow-sm">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-wallet"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Sales</span>
-                    <span class="info-box-number">760</span>
+                    <span class="info-box-text text-muted">Aylık Satış</span>
+                    <span class="info-box-number text-lg">760</span>
                 </div>
-                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
         </div>
-        <!-- /.col -->
+
         <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
+            <div class="info-box mb-3 shadow-sm">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-user-plus text-white"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">New Members</span>
-                    <span class="info-box-number">2,000</span>
+                    <span class="info-box-text text-muted">Yeni Üyeler</span>
+                    <span class="info-box-number text-lg">2,000</span>
                 </div>
-                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
         </div>
-        <!-- /.col -->
     </div>
-    <!-- /.row -->
 
     <div class="row">
-        <div class="col-md-12">
-            <div class="card" style="width: 100%;">
-                <div class="card-header">
-                    <h1 class="card-title">test</h1>
+        <div class="col-lg-8">
+            <div class="card card-outline card-primary">
+                <div class="card-header border-0">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="card-title font-weight-bold">Son Aktiviteler</h3>
+                        <a href="javascript:void(0);" class="text-primary text-sm">Tümünü Gör</a>
+                    </div>
                 </div>
                 <div class="card-body">
-                    Lorem ipsum dolor sit amet...
+                    <p>Dashboard ana verileriniz burada listelenecek. İsterseniz buraya bir grafik veya tablo ekleyebiliriz.</p>
+                    <div class="alert alert-light border">
+                        <i class="fas fa-info-circle text-info"></i> Bugün sisteme 50 yeni kayıt geldi.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title font-weight-bold"><i class="fas fa-bolt text-warning"></i> Hızlı İşlemler</h3>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="#" class="btn btn-block btn-outline-primary btn-sm text-left">
+                                <i class="fas fa-plus mr-2"></i> Yeni Ürün Ekle
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" class="btn btn-block btn-outline-secondary btn-sm text-left">
+                                <i class="fas fa-envelope mr-2"></i> Mesajları Kontrol Et
+                            </a>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <small class="text-muted">Son güncelleme: Az önce</small>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('js')
