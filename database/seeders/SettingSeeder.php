@@ -23,8 +23,8 @@ class SettingSeeder extends Seeder
             'meta_author'       => 'Aybars Hasan Şalvarcı',
 
             // Logolar
-            'header_logo'       => 'front/img/logo-header.png',
-            'footer_logo'       => 'front/img/logo-footer.png',
+            'logo_light'       => 'front/img/logo-header.png',
+            'logo_dark'       => 'front/img/logo-footer.png',
 
             // Favicon Seti
             'favicon'           => 'front/img/favicon/favicon.ico',

@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install zip pdo_mysql gd
 
+COPY php.custom.ini /usr/local/etc/php/conf.d/custom.ini
+
 # Composer'ı kopyala
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 

@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('title');
 
             //logo
-            $table->string('header_logo');
-            $table->string('footer_logo');
+            $table->string('logo_light');
+            $table->string('logo_dark');
 
             //favicon
             $table->string('favicon');

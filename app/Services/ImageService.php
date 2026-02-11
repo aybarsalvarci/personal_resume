@@ -3,14 +3,14 @@
 namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Laravel\Facades\Image;
-use Opcodes\LogViewer\Logs\Log;
 
 class ImageService
 {
-    public static function upload(UploadedFile $file, string $path, ?int $width = null): string
+    public static function uploadWithEncoding(UploadedFile $file, string $path, ?int $width = null, ?string $format = 'webp'): string
     {
         try {
             $image = Image::read($file);
@@ -19,13 +19,16 @@ class ImageService
                 $encodedImage = $image->scaleDown($width);
             }
 
-            $encodedImage = $image->toWebp(80);
+            $format = $format == null ? $file->extension() : $format;
+
+            $encodedImage = $image->encodeByExtension($format, quality:80);
+
         } catch (\Exception $e) {
             Log::error('Görsel işlenirken bir hata oluştu: ' . $e->getMessage(), $e->getTrace());
         }
 
         try {
-            $fileName = Str::uuid() . '.webp';
+            $fileName = Str::uuid() . '.' . $format;
             $fullPath = trim($path, '/') . '/' . $fileName;
 
             Storage::disk('public')->put($fullPath, $encodedImage);
@@ -34,5 +37,20 @@ class ImageService
         }
 
         return $fullPath;
+    }
+
+    public static function uploadWithoutEncoding(UploadedFile $file, string $path, ?int $width = null): string
+    {
+        try {
+            $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
+            $path = trim($path, '/');
+
+            Storage::disk('public')->putFileAS($path, $file, $fileName);
+            return $path . "/" . $fileName;
+        } catch (\Exception $e) {
+            Log::error('Görsel yüklenirken bir hata oluştu: ' . $e->getMessage(), $e->getTrace());
+        }
+
+        return "";
     }
 }
