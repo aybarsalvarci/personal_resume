@@ -1,131 +1,76 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="{{route('admin.dashboard')}}" class="brand-link">
-        <img src="/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-             style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <a href="{{ route('admin.dashboard') }}" class="brand-link">
+        <img src="/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Admin Panel</span>
     </a>
 
-    <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
+                {{-- Auth kullanıyorsan: auth()->user()->name --}}
                 <a href="#" class="d-block">Alexander Pierce</a>
             </div>
         </div>
 
-        <!-- SidebarSearch Form -->
-        <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                       aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
-                <li class="nav-item ">
-                    <a href="{{route('admin.dashboard')}}" class="nav-link {{request()->routeIs('admin.dashboard') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Dashboard
-                        </p>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-th-large"></i>
+                        <p>Dashboard</p>
                     </a>
                 </li>
 
-                <li class="nav-item ">
-                    <a href="{{route('admin.projects.index')}}" class="nav-link {{request()->routeIs('admin.projects.*') ? 'active' : ''}}">
-                        <i class="nav-icon fa fa-code"></i>
-                        <p>
-                            Projeler
-                        </p>
+                <li class="nav-header">İÇERİK YÖNETİMİ</li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.projects.index') }}" class="nav-link {{ request()->routeIs('admin.projects.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-briefcase"></i>
+                        <p>Projeler</p>
                     </a>
                 </li>
 
-
-                <li class="nav-item ">
-                    <a href="{{route('admin.blogs.index')}}" class="nav-link {{request()->routeIs('admin.blogs.*') ? 'active' : ''}}">
-                        <i class="nav-icon fa fa-file"></i>
-                        <p>
-                            Bloglar
-                        </p>
+                <li class="nav-item">
+                    <a href="{{ route('admin.blogs.index') }}" class="nav-link {{ request()->routeIs('admin.blogs.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-pen-nib"></i>
+                        <p>Blog Yazıları</p>
                     </a>
                 </li>
 
-                <li class="nav-item ">
-                    <a href="{{route('admin.contacts.index')}}" class="nav-link {{request()->routeIs('admin.contacts.*') ? 'active' : ''}}">
-                        <i class="nav-icon fa fa-envelope"></i>
-                        <p>
-                            Bloglar
-                        </p>
+                <li class="nav-header">İLETİŞİM & AYARLAR</li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.contacts.index') }}" class="nav-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        <p>Gelen Mesajlar</p>
                     </a>
                 </li>
 
-                <li class="nav-item ">
-                    <a href="{{route('admin.settings.index')}}" class="nav-link {{request()->routeIs('admin.settings.*') ? 'active' : ''}}">
-                        <i class="nav-icon fa fa-cogs"></i>
-                        <p>
-                            Ayarlar
-                        </p>
+                <li class="nav-item">
+                    <a href="{{ route('admin.homepage.index') }}" class="nav-link {{ request()->routeIs('admin.homepage.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-home"></i>
+                        <p>Anasayfa Düzeni</p>
                     </a>
                 </li>
 
-                <li class="nav-item ">
-                    <a href="{{route('admin.homepage.index')}}" class="nav-link {{request()->routeIs('admin.homepage.*') ? 'active' : ''}}">
-                        <i class="nav-icon fa fa-cogs"></i>
-                        <p>
-                            Anasayfa Yönetimi
-                        </p>
+                <li class="nav-item">
+                    <a href="{{ route('admin.settings.index') }}" class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-tools"></i>
+                        <p>Genel Ayarlar</p>
                     </a>
                 </li>
 
-{{--                <li class="nav-item menu-open">--}}
-{{--                    <a href="#" class="nav-link active">--}}
-{{--                        <i class="nav-icon fas fa-tachometer-alt"></i>--}}
-{{--                        <p>--}}
-{{--                            Dashboard--}}
-{{--                            <i class="right fas fa-angle-left"></i>--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                    <ul class="nav nav-treeview">--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="./index.html" class="nav-link">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Dashboard v1</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="./index2.html" class="nav-link active">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Dashboard v2</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="./index3.html" class="nav-link">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Dashboard v3</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </li>--}}
-
-
+                <li class="nav-item mt-3">
+                    <a href="#" class="nav-link text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>Çıkış Yap</p>
+                    </a>
+                </li>
             </ul>
         </nav>
-        <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
 </aside>
