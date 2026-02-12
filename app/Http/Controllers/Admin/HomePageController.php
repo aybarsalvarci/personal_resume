@@ -59,7 +59,7 @@ class HomePageController extends Controller
         // techstack
         $tech = [];
         for ($i = 0; $i < count($data['tech_title']); $i++) {
-            $tech[] = [
+            $tech = [
                 'icon' => $data['tech_icon'][$i],
                 'title' => $data['tech_title'][$i],
                 'description' => $data['tech_description'][$i],
@@ -82,6 +82,7 @@ class HomePageController extends Controller
         $setup['editor'] = $data['setup_editor'];
         $setup['terminal'] = $data['setup_terminal'];
         $setup['db'] = $data['setup_db'];
+        $setup['containerization'] = $data['setup_containerization'];
 
         $data['setup'] = json_encode($setup);
 

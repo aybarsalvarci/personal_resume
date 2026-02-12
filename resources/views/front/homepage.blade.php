@@ -20,7 +20,7 @@
                         ],
                         "description": "{{$homePageSettings->hero_description}}",
                         "knowsAbout": [
-                            @foreach(json_decode($homePageSettings->techs) as $tech)
+                            @foreach($homePageSettings->techs as $tech)
                             "{{$tech->title}}"@if(!$loop->last)
                             ,
                             @endif
@@ -108,7 +108,7 @@
                             <div class="terminal-button green"></div>
                         </div>
                         <div class="terminal-content">
-                            @foreach(json_decode($homePageSettings->hero_terminal) as $key => $value)
+                            @foreach($homePageSettings->hero_terminal as $key => $value)
                                 <div class="terminal-line">
                                     <span class="prompt">➜</span> <span class="command">{{$key}}</span>
                                 </div>
@@ -127,7 +127,7 @@
     <section class="py-5">
         <div class="container">
             <div class="row g-4" data-aos="fade-up">
-                @foreach(json_decode($homePageSettings->stats) as $key => $value)
+                @foreach($homePageSettings->stats as $key => $value)
                     <div class="col-md-3 col-6">
                         <div class="stat-card">
                             <div class="stat-number">{{$value}}</div>
@@ -211,14 +211,13 @@
         </div>
     </section>
 
-    @php $about = json_decode($homePageSettings->about); @endphp
         <!-- About Section -->
     <section id="about" class="py-5">
         <div class="container py-5">
             <div class="section-header" data-aos="fade-up">
                 <h2 class="section-title">Hakkımda</h2>
                 <p class="section-subtitle">
-                    {{$about->subtitle}}
+                    {{$homePageSettings->about->subtitle}}
                 </p>
             </div>
             <div class="row g-4">
@@ -229,10 +228,10 @@
                         </div>
                         <h3 class="fw-bold mb-3">Öğrenme Yolculuğum</h3>
                         <p class="text-secondary mb-4">
-                            {{$about->left->description}}
+                            {{$homePageSettings->about->left->description}}
                         </p>
                         <div class="d-flex flex-wrap gap-2">
-                            @foreach(explode(',', $about->left->tags) as $tag)
+                            @foreach(explode(',', $homePageSettings->about->left->tags) as $tag)
                                 <span class="tech-tag">{{trim($tag)}}</span>
                             @endforeach
                         </div>
@@ -245,10 +244,10 @@
                         </div>
                         <h3 class="fw-bold mb-3">Teknik Yetkinlikler</h3>
                         <p class="text-secondary mb-4">
-                            {{$about->right->description}}
+                            {{$homePageSettings->about->right->description}}
                         </p>
                         <ul class="text-secondary mt-3 mb-0">
-                            @foreach($about->right->list as $item)
+                            @foreach($homePageSettings->about->right->list as $item)
                                 <li class="mb-2">{{$item}}</li>
                             @endforeach
 
@@ -260,7 +259,6 @@
     </section>
 
     <!-- Expertise Section -->
-    @php $techs = json_decode($homePageSettings->techs) @endphp
     <section id="expertise" class="py-5">
         <div class="container py-5">
             <div class="section-header" data-aos="fade-up">
@@ -271,7 +269,7 @@
             </div>
             <div class="row g-4">
 
-                @foreach($techs as $tech)
+                @foreach($homePageSettings->techs as $tech)
                     <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{$loop->iteration * 100}}">
                         <div class="bento-card text-center">
                             <div class="card-icon mx-auto">
@@ -408,7 +406,6 @@
     </section>
 
     <!-- Engineering Principles -->
-    @php $principles = json_decode($homePageSettings->principles) @endphp
     <section class="py-5">
         <div class="container py-5">
             <div class="row g-4">
@@ -419,7 +416,7 @@
                         </div>
                         <h3 class="fw-bold mb-4">Mühendislik Prensiplerim</h3>
                         <ul class="list-unstyled">
-                            @foreach($principles as $principle)
+                            @foreach($homePageSettings->principles as $principle)
                                 <li class="mb-3 d-flex align-items-start">
                                     <i class="fas fa-check-circle text-primary me-3 mt-1"></i>
                                     <span class="text-secondary">{{$principle}}</span>
@@ -429,7 +426,6 @@
                     </div>
                 </div>
 
-                @php $setup = json_decode($homePageSettings->setup) @endphp
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="bento-card">
                         <div class="card-icon">
@@ -439,31 +435,31 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-secondary"><i class="fas fa-desktop me-2"></i>İşletim Sistemi</span>
-                                <span class="fw-semibold">{{$setup->os}}</span>
+                                <span class="fw-semibold">{{$homePageSettings->setup->os}}</span>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-secondary"><i class="fas fa-code me-2"></i>Code Editor</span>
-                                <span class="fw-semibold">{{$setup->editor}}</span>
+                                <span class="fw-semibold">{{$homePageSettings->setup->editor}}</span>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-secondary"><i class="fas fa-terminal me-2"></i>Terminal</span>
-                                <span class="fw-semibold">{{$setup->terminal}}</span>
+                                <span class="fw-semibold">{{$homePageSettings->setup->terminal}}</span>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-secondary"><i class="fas fa-database me-2"></i>Database Tools</span>
-                                <span class="fw-semibold">{{$setup->db}}</span>
+                                <span class="fw-semibold">{{$homePageSettings->setup->db}}</span>
                             </div>
                         </div>
                         <div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-secondary"><i class="fab fa-docker me-2"></i>Containerization</span>
-                                <span class="fw-semibold">Docker, Kubernetes</span>
+                                <span class="fw-semibold">{{$homePageSettings->setup->containerization}}</span>
                                 {{--                                TODO : Veritabanında containeriation yok eklenecek.--}}
                             </div>
                         </div>
