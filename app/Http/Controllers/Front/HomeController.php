@@ -19,14 +19,15 @@ class HomeController extends Controller
     public function home()
     {
         $projects = Cache::remember('home_projects', 60 * 60 * 24, function () {
-            return Project::where('isFeatured', true)
+            return Project::orderBy('isFeatured', "DESC")
                 ->orderBy('created_at', 'desc')
                 ->limit(2)
                 ->get();
         });
 
         $blogs = Cache::remember('home_blogs', 60 * 60 * 24, function () {
-            return Blog::where('isFeatured', true)
+            return Blog::where('status', 'published')
+                ->orderBy('isFeatured', "DESC")
                 ->with(['category' => function ($query) {
                     $query->select('name', 'id');
                 }])

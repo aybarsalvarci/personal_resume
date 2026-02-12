@@ -47,7 +47,8 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover mb-0" style="color: #cbd5e0;">
-                            <thead style="background-color: rgba(0,0,0,0.2); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">
+                            <thead
+                                style="background-color: rgba(0,0,0,0.2); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">
                             <tr>
                                 <th class="border-0 px-4">ID</th>
                                 <th class="border-0" style="width: 40%;">Yazı Başlığı & SEO</th>
@@ -65,19 +66,26 @@
                                     </td>
                                     <td class="align-middle">
                                         <div class="d-flex align-items-center">
-                                            <div class="rounded-lg d-flex align-items-center justify-content-center shadow-sm mr-3"
-                                                 style="width: 45px; height: 45px; background-color: #2d3244; border: 1px solid #3f475e; flex-shrink: 0;">
+                                            <div
+                                                class="rounded-lg d-flex align-items-center justify-content-center shadow-sm mr-3"
+                                                style="width: 45px; height: 45px; background-color: #2d3244; border: 1px solid #3f475e; flex-shrink: 0;">
                                                 <i class="{{ $blog->category->icon ?? 'fas fa-file-alt' }} text-primary"></i>
                                             </div>
-                                            <div style="max-width: 400px;">
-                                                <div class="text-white font-weight-bold mb-0 text-truncate">
-                                                    {{ $blog->title }}
+
+                                            <div style="min-width: 0; flex: 1;">
+                                                <div class="d-flex align-items-center">
+                                                    <span class="text-white font-weight-bold mb-0 text-truncate">
+                                                        {{ $blog->title }}
+                                                    </span>
                                                     @if($blog->isFeatured)
-                                                        <i class="fas fa-star text-warning ml-1" style="font-size: 0.7rem;" title="Öne Çıkan Yazı"></i>
+                                                        <i class="fas fa-star text-warning ml-2"
+                                                           style="font-size: 0.8rem; flex-shrink: 0;"
+                                                           title="Öne Çıkan Yazı"></i>
                                                     @endif
                                                 </div>
                                                 <div class="text-muted text-truncate" style="font-size: 0.7rem;">
-                                                    <i class="fas fa-tags mr-1" style="font-size: 0.6rem;"></i>{{ Str::limit($blog->meta_description, 60) }}
+                                                    <i class="fas fa-tags mr-1" style="font-size: 0.6rem;"></i>
+                                                    {{ $blog->meta_description }}
                                                 </div>
                                             </div>
                                         </div>
@@ -131,7 +139,8 @@
                     </div>
                 </div>
 
-                <div class="card-footer border-0" style="background-color: #161a25; border-top: 1px solid #2d3244 !important;">
+                <div class="card-footer border-0"
+                     style="background-color: #161a25; border-top: 1px solid #2d3244 !important;">
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-muted small">
                             Toplam <span class="text-white font-weight-bold">{{ $blogs->count() }}</span> makale bulundu.

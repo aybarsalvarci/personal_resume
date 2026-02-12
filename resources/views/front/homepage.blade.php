@@ -20,16 +20,16 @@
                         ],
                         "description": "{{$homePageSettings->hero_description}}",
                         "knowsAbout": [
-                            @foreach($homePageSettings->techs as $tech)
-                            "{{$tech->title}}"@if(!$loop->last)
-                            ,
-                            @endif
-                            @endforeach
-                        ]
-                    },
-                    {
-                        "@type": "WebSite",
-                        "@id": "{{ url('/#website') }}",
+        @foreach($homePageSettings->techs as $tech)
+            "{{$tech->title}}"@if(!$loop->last)
+                ,
+            @endif
+        @endforeach
+        ]
+    },
+    {
+        "@type": "WebSite",
+        "@id": "{{ url('/#website') }}",
                         "url": "{{ url('/') }}",
                         "name": "{{ config('app.name') }}",
                         "publisher": {
@@ -211,7 +211,7 @@
         </div>
     </section>
 
-        <!-- About Section -->
+    <!-- About Section -->
     <section id="about" class="py-5">
         <div class="container py-5">
             <div class="section-header" data-aos="fade-up">
@@ -295,14 +295,12 @@
         <div class="container py-5">
             <div class="section-header" data-aos="fade-up">
                 <h2 class="section-title">Öne Çıkan Projeler</h2>
-                <p class="section-subtitle">
-                    Öğrenme sürecimde geliştirdiğim seçilmiş projeler
-                </p>
+                <p class="section-subtitle">Öğrenme sürecimde geliştirdiğim seçilmiş projeler</p>
             </div>
             <div class="row g-4">
-                @foreach($projects as $project)
+                @forelse($projects as $project)
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="project-card h-100"> {{-- Görsel Alanı --}}
+                        <div class="project-card h-100">
                             @if($project->image)
                                 <div class="project-image-wrapper mb-3">
                                     <img src="{{ Storage::url($project->image) }}"
@@ -333,27 +331,38 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-12" data-aos="fade-up">
+                        <div class="bento-card text-center py-5">
+                            <div class="card-icon mx-auto mb-3">
+                                <i class="fas fa-box-open text-secondary"></i>
+                            </div>
+                            <h4 class="text-white">Henüz Proje Bulunmuyor</h4>
+                            <p class="text-secondary">Şu an üzerinde çalıştığım projeleri yakında burada
+                                paylaşacağım.</p>
+                        </div>
+                    </div>
+                @endforelse
             </div>
-            <div class="text-center mt-5" data-aos="fade-up">
-                <a href="{{route('projects')}}" class="btn btn-outline-light btn-lg rounded-pill px-5">
-                    <i class="fas fa-folder-open me-2"></i>Tüm Projeleri Gör
-                </a>
-            </div>
+
+            @if($projects->count() > 0)
+                <div class="text-center mt-5" data-aos="fade-up">
+                    <a href="{{route('projects')}}" class="btn btn-outline-light btn-lg rounded-pill px-5">
+                        <i class="fas fa-folder-open me-2"></i>Tüm Projeleri Gör
+                    </a>
+                </div>
+            @endif
         </div>
     </section>
 
-    <!-- Blog Section -->
     <section class="py-5">
         <div class="container py-5">
             <div class="section-header" data-aos="fade-up">
                 <h2 class="section-title">Son Yazılar</h2>
-                <p class="section-subtitle">
-                    Öğrendiklerimi ve deneyimlerimi paylaştığım teknik yazılar
-                </p>
+                <p class="section-subtitle">Öğrendiklerimi ve deneyimlerimi paylaştığım teknik yazılar</p>
             </div>
             <div class="row g-4">
-                @foreach($blogs as $blog)
+                @forelse($blogs as $blog)
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{$loop->iteration * 100}}">
                         <a href="{{ route('blog.detail', $blog->slug) }}" class="text-decoration-none">
                             <div
@@ -394,16 +403,37 @@
                                 </div>
                             </div>
                         </a>
+
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-12" data-aos="fade-up">
+                        <div class="bento-card text-center py-5" style="border: 1px dashed rgba(255,255,255,0.1);">
+                            <div class="card-icon mx-auto mb-3">
+                                <i class="fas fa-pen-fancy text-primary"></i>
+                            </div>
+                            <h4 class="text-white">Yazılar Çok Yakında</h4>
+                            <p class="text-secondary">Deneyimlerimi aktaracağım teknik yazılar hazırlık aşamasında. Takipte kalın!</p>
+                            <div class="mt-3">
+                            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-2">
+                                <i class="fas fa-hourglass-half me-2"></i>Yükleniyor...
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                @endforelse
             </div>
-            <div class="text-center mt-5" data-aos="fade-up">
-                <a href="{{route('blogs')}}" class="btn btn-outline-light btn-lg rounded-pill px-5">
-                    <i class="fas fa-book-open me-2"></i>Tüm Yazıları Gör
-                </a>
-            </div>
+
+            @if($blogs->count() > 0)
+                <div class="text-center mt-5" data-aos="fade-up">
+                    <a href="{{route('blogs')}}" class="btn btn-outline-light btn-lg rounded-pill px-5">
+                        <i class="fas fa-book-open me-2"></i>Tüm Yazıları Gör
+                    </a>
+                </div>
+            @endif
         </div>
     </section>
+
+
 
     <!-- Engineering Principles -->
     <section class="py-5">
