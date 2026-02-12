@@ -1,6 +1,6 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
         <div class="container">
-            <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset(Storage::url(config('settings.header_logo')))}}" alt="{{config('settings.title')}} footer logo"></a>
+            <a class="navbar-brand" href="{{route('home')}}"><img src="{{Storage::url(config('settings.logo_dark'))}}" alt="{{config('settings.title')}} logo"></a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>

@@ -5,9 +5,10 @@
             <div class="col-lg-4" data-aos="fade-up">
                 <div class="mb-4">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset(Storage::url(config('settings.footer_logo'))) }}"
+                        <img src="{{ asset(Storage::url(config('settings.logo_dark'))) }}"
                              alt="{{ config('settings.title') }}"
-                             class="footer-logo">
+                             class="footer-logo"
+                        width="150px">
                     </a>
                 </div>
                 <p class="text-secondary">
@@ -17,7 +18,7 @@
                     <a href="https://github.com/{{config('settings.github')}}" class="social-link"><i
                             class="fab fa-github"></i></a>
                     <a href="{{config('settings.linkedin')}}" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    <a href="{{config('settings.email')}}" class="social-link"><i class="fas fa-envelope"></i></a>
+                    <a href="mailto:{{config('settings.email')}}" class="social-link"><i class="fas fa-envelope"></i></a>
                     <a href="{{config('settings.twitter')}}" class="social-link"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
