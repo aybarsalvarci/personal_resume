@@ -7,6 +7,7 @@ use App\Http\Requests\Contact\CreateRequest;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\Contact;
+use App\Models\HomePage;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 use Illuminate\Http\Request;
@@ -29,7 +30,9 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
 
-        return view('front.homepage', compact('projects', 'blogs'));
+        $homePageSettings = HomePage::firstOrFail();
+
+        return view('front.homepage', compact('projects', 'blogs', 'homePageSettings'));
     }
 
     public function projects(Request $request)

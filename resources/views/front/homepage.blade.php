@@ -2,6 +2,49 @@
 
 @section('title', "")
 
+@section('schema')
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                    {
+                        "@type": "Person",
+                        "@id": "{{ url('/#person') }}",
+                        "name": "Adınız Soyadınız",
+                        "jobTitle": "Software Developer",
+                        "url": "{{ url('/') }}",
+                        "sameAs": [
+                            "https://github.com/{{config('settings.github')}}",
+                            "{{config('settings.linkedin')}}",
+                            "{{config('settings.twitter')}}"
+                        ],
+                        "description": "{{$homePageSettings->hero_description}}",
+                        "knowsAbout": [
+                            @foreach(json_decode($homePageSettings->techs) as $tech)
+                            "{{$tech->title}}"@if(!$loop->last)
+                            ,
+                            @endif
+                            @endforeach
+                        ]
+                    },
+                    {
+                        "@type": "WebSite",
+                        "@id": "{{ url('/#website') }}",
+                        "url": "{{ url('/') }}",
+                        "name": "{{ config('app.name') }}",
+                        "publisher": {
+                        "@id": "{{ url('/#person') }}"
+                    }
+                },
+                {
+                    "@type": "WebSite",
+                    "url": "{{ url('/') }}",
+                }
+            ]
+        }
+    </script>
+@endsection
+
 @push('css')
     <style>
         .blog-card:hover .blog-image-wrapper img {
@@ -10,7 +53,7 @@
 
         .blog-card {
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .blog-card:hover {
@@ -29,19 +72,15 @@
                     <div class="mb-3">
                         <span
                             class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill border border-primary border-opacity-25">
-                            <i class="fas fa-code me-2"></i>Computer Engineering Student
+                            <i class="fas fa-code me-2"></i>{{$homePageSettings->hero_badge}}
                         </span>
                     </div>
                     <h1 class="hero-title">
-                        Kodla<br>
-                        <span class="gradient-text">Sistemler</span><br>
-                        İnşa Et.
+                        {!! $homePageSettings->hero_title !!}
                     </h1>
-                    <p class="hero-subtitle">Bilgisayar Mühendisliği Öğrencisi & Backend Developer</p>
+                    <p class="hero-subtitle">{{$homePageSettings->hero_subtitle}}</p>
                     <p class="hero-description">
-                        Öğrenmeye ve gelişmeye açık bir bilgisayar mühendisliği öğrencisi olarak, sürdürülebilir ve
-                        ölçeklenebilir backend sistemler geliştirmeye odaklanıyorum. Her proje ile clean architecture
-                        ve best practices öğrenmeye devam ediyorum.
+                        {{$homePageSettings->hero_description}}
                     </p>
                     <div class="d-flex gap-3 mt-4 flex-wrap">
                         <a href="projects.html" class="btn btn-primary btn-lg rounded-pill px-4">
@@ -52,10 +91,13 @@
                         </a>
                     </div>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://github.com/{{config('settings.github')}}" class="social-link"><i
+                                class="fab fa-github"></i></a>
+                        <a href="{{config('settings.linkedin')}}" class="social-link"><i
+                                class="fab fa-linkedin"></i></a>
+                        <a href="mailto:{{config('settings.email')}}" class="social-link"><i
+                                class="fas fa-envelope"></i></a>
+                        <a href="{{config('settings.twitter')}}" class="social-link"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-5" data-aos="fade-left">
@@ -66,24 +108,14 @@
                             <div class="terminal-button green"></div>
                         </div>
                         <div class="terminal-content">
-                            <div class="terminal-line">
-                                <span class="prompt">➜</span> <span class="command">whoami</span>
-                            </div>
-                            <div class="terminal-line output">
-                                Aybars Şalvarcı - Bilgisayar Mühendisliği Öğrencisi
-                            </div>
-                            <div class="terminal-line">
-                                <span class="prompt">➜</span> <span class="command">cat ./focus.txt</span>
-                            </div>
-                            <div class="terminal-line output">
-                                "Her gün biraz daha iyi kod yazmayı öğreniyorum"
-                            </div>
-                            <div class="terminal-line">
-                                <span class="prompt">➜</span> <span class="command">echo $STATUS</span>
-                            </div>
-                            <div class="terminal-line output">
-                                Öğreniyor, geliştiriyor, büyüyor 🚀
-                            </div>
+                            @foreach(json_decode($homePageSettings->hero_terminal) as $key => $value)
+                                <div class="terminal-line">
+                                    <span class="prompt">➜</span> <span class="command">{{$key}}</span>
+                                </div>
+                                <div class="terminal-line output">
+                                    {{$value}}
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -95,30 +127,14 @@
     <section class="py-5">
         <div class="container">
             <div class="row g-4" data-aos="fade-up">
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-number">15+</div>
-                        <div class="stat-label">Projeler</div>
+                @foreach(json_decode($homePageSettings->stats) as $key => $value)
+                    <div class="col-md-3 col-6">
+                        <div class="stat-card">
+                            <div class="stat-number">{{$value}}</div>
+                            <div class="stat-label">{{$key}}</div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-number">8+</div>
-                        <div class="stat-label">Teknoloji</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-number">1.5Y</div>
-                        <div class="stat-label">Deneyim</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-number">∞</div>
-                        <div class="stat-label">Motivasyon</div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -129,7 +145,7 @@
             <div class="section-header" data-aos="fade-up">
                 <h2 class="section-title">GitHub İstatistiklerim</h2>
                 <p class="section-subtitle">
-                    Kod yazma alışkanlıklarım ve GitHub aktivitelerim (Otomatik Güncellenir)
+                    Kod yazma alışkanlıklarım ve GitHub aktivitelerim
                 </p>
             </div>
 
@@ -139,7 +155,7 @@
                         <h4 class="fw-bold mb-4">Genel Bakış</h4>
                         <div class="stats-container">
                             <img
-                                src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=aybarsalvarci&theme=radical"
+                                src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username={{config('settings.github')}}&theme=radical"
                                 alt="GitHub Stats" class="img-fluid rounded" style="min-height: 200px;"/>
                         </div>
                     </div>
@@ -150,7 +166,7 @@
                         <h4 class="fw-bold mb-4">En Çok Kullanılan Diller</h4>
                         <div class="stats-container">
                             <img
-                                src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=aybarsalvarci&theme=radical"
+                                src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username={{config('settings.github')}}&theme=radical"
                                 alt="Top Languages" class="img-fluid rounded" style="min-height: 200px;"/>
                         </div>
                     </div>
@@ -161,7 +177,7 @@
                         <h4 class="fw-bold mb-4">Haftalık Aktivite Grafiği</h4>
                         <div class="stats-container">
                             <img
-                                src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=aybarsalvarci&theme=radical"
+                                src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username={{config('settings.github')}}&theme=radical"
                                 alt="GitHub Profile Details" class="img-fluid w-100 rounded"/>
                         </div>
                     </div>
@@ -171,23 +187,23 @@
             <div class="row g-3 mt-4 justify-content-center">
                 <div class="col-auto" data-aos="zoom-in" data-aos-delay="400">
                     <img
-                        src="https://img.shields.io/github/repos/aybarsalvarci?color=6366f1&style=for-the-badge&logo=github"
+                        src="https://img.shields.io/github/repos/{{config('settings.github')}}?color=6366f1&style=for-the-badge&logo=github"
                         alt="Repos"/>
                 </div>
                 <div class="col-auto" data-aos="zoom-in" data-aos-delay="500">
                     <img
-                        src="https://img.shields.io/github/followers/aybarsalvarci?color=8b5cf6&style=for-the-badge&logo=github"
+                        src="https://img.shields.io/github/followers/{{config('settings.github')}}?color=8b5cf6&style=for-the-badge&logo=github"
                         alt="Followers"/>
                 </div>
                 <div class="col-auto" data-aos="zoom-in" data-aos-delay="600">
                     <img
-                        src="https://img.shields.io/github/stars/aybarsalvarci?color=f59e0b&style=for-the-badge&logo=github"
+                        src="https://img.shields.io/github/stars/{{config('settings.github')}}?color=f59e0b&style=for-the-badge&logo=github"
                         alt="Stars"/>
                 </div>
             </div>
 
             <div class="text-center mt-5" data-aos="fade-up">
-                <a href="https://github.com/aybarsalvarci" target="_blank"
+                <a href="https://github.com/{{config('settings.github')}}" target="_blank"
                    class="btn btn-primary btn-lg rounded-pill px-5">
                     <i class="fab fa-github me-2"></i>GitHub Profilimi Ziyaret Et
                 </a>
@@ -195,13 +211,14 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    @php $about = json_decode($homePageSettings->about); @endphp
+        <!-- About Section -->
     <section id="about" class="py-5">
         <div class="container py-5">
             <div class="section-header" data-aos="fade-up">
                 <h2 class="section-title">Hakkımda</h2>
                 <p class="section-subtitle">
-                    Backend sistemler ve temiz kod mimarisi öğrenmeye odaklanan bir bilgisayar mühendisliği öğrencisi
+                    {{$about->subtitle}}
                 </p>
             </div>
             <div class="row g-4">
@@ -212,14 +229,12 @@
                         </div>
                         <h3 class="fw-bold mb-3">Öğrenme Yolculuğum</h3>
                         <p class="text-secondary mb-4">
-                            Bilgisayar mühendisliği eğitimim boyunca, sadece kod yazmanın yeterli olmadığını,
-                            kodun okunabilir, sürdürülebilir ve test edilebilir olması gerektiğini öğrendim.
-                            Her proje ile bu prensipleri daha iyi anlamaya çalışıyorum.
+                            {{$about->left->description}}
                         </p>
                         <div class="d-flex flex-wrap gap-2">
-                            <span class="tech-tag">Clean Code</span>
-                            <span class="tech-tag">Best Practices</span>
-                            <span class="tech-tag">Sürekli Öğrenme</span>
+                            @foreach(explode(',', $about->left->tags) as $tag)
+                                <span class="tech-tag">{{trim($tag)}}</span>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -230,14 +245,13 @@
                         </div>
                         <h3 class="fw-bold mb-3">Teknik Yetkinlikler</h3>
                         <p class="text-secondary mb-4">
-                            Eğitimim ve kişisel projelerim boyunca edindiğim teknolojiler ve odaklandığım alanlar.
+                            {{$about->right->description}}
                         </p>
                         <ul class="text-secondary mt-3 mb-0">
-                            <li class="mb-2">Backend Development (Laravel, Python, Java)</li>
-                            <li class="mb-2">RESTful API Design & Authentication</li>
-                            <li class="mb-2">Relational Databases (MySQL, PostgreSQL)</li>
-                            <li class="mb-2">Docker & Development Tools</li>
-                            <li>Version Control (Git, GitHub)</li>
+                            @foreach($about->right->list as $item)
+                                <li class="mb-2">{{$item}}</li>
+                            @endforeach
+
                         </ul>
                     </div>
                 </div>
@@ -246,6 +260,7 @@
     </section>
 
     <!-- Expertise Section -->
+    @php $techs = json_decode($homePageSettings->techs) @endphp
     <section id="expertise" class="py-5">
         <div class="container py-5">
             <div class="section-header" data-aos="fade-up">
@@ -255,52 +270,24 @@
                 </p>
             </div>
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="bento-card text-center">
-                        <div class="card-icon mx-auto">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <h4 class="fw-bold mb-3">Backend Development</h4>
-                        <p class="text-secondary mb-4">RESTful API'ler, authentication sistemleri ve database tasarımı
-                        </p>
-                        <div class="d-flex flex-wrap gap-2 justify-content-center">
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">REST API</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="bento-card text-center">
-                        <div class="card-icon mx-auto">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <h4 class="fw-bold mb-3">Database Systems</h4>
-                        <p class="text-secondary mb-4">İlişkisel veritabanları ve query optimizasyonu</p>
-                        <div class="d-flex flex-wrap gap-2 justify-content-center">
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">SQL</span>
-                            <span class="tech-tag">Optimization</span>
+
+                @foreach($techs as $tech)
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{$loop->iteration * 100}}">
+                        <div class="bento-card text-center">
+                            <div class="card-icon mx-auto">
+                                <i class="{{$tech->icon}}"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">{{$tech->title}}</h4>
+                            <p class="text-secondary mb-4">{{$tech->description}}
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                @foreach(explode(',', $tech->tags) as $tag)
+                                    <span class="tech-tag">{{trim($tag)}}</span>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="bento-card text-center">
-                        <div class="card-icon mx-auto">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                        <h4 class="fw-bold mb-3">DevOps & Tools</h4>
-                        <p class="text-secondary mb-4">Containerization ve modern development tooling</p>
-                        <div class="d-flex flex-wrap gap-2 justify-content-center">
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">Git</span>
-                            <span class="tech-tag">Linux</span>
-                            <span class="tech-tag">CI/CD</span>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -384,7 +371,8 @@
 
                                 <div class="p-4">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
+                                        <span
+                                            class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
                                             {{$blog->category->name}}
                                         </span>
                                         <small class="text-secondary">
@@ -420,6 +408,7 @@
     </section>
 
     <!-- Engineering Principles -->
+    @php $principles = json_decode($homePageSettings->principles) @endphp
     <section class="py-5">
         <div class="container py-5">
             <div class="row g-4">
@@ -430,29 +419,17 @@
                         </div>
                         <h3 class="fw-bold mb-4">Mühendislik Prensiplerim</h3>
                         <ul class="list-unstyled">
-                            <li class="mb-3 d-flex align-items-start">
-                                <i class="fas fa-check-circle text-primary me-3 mt-1"></i>
-                                <span class="text-secondary">Okunabilirlik, kısalıktan daha önemlidir</span>
-                            </li>
-                            <li class="mb-3 d-flex align-items-start">
-                                <i class="fas fa-check-circle text-primary me-3 mt-1"></i>
-                                <span class="text-secondary">Test yazılmayan kod teknik borçtur</span>
-                            </li>
-                            <li class="mb-3 d-flex align-items-start">
-                                <i class="fas fa-check-circle text-primary me-3 mt-1"></i>
-                                <span class="text-secondary">Yorum yerine iyi isimlendirme tercih ederim</span>
-                            </li>
-                            <li class="mb-3 d-flex align-items-start">
-                                <i class="fas fa-check-circle text-primary me-3 mt-1"></i>
-                                <span class="text-secondary">Sistemler zamanla evrilmelidir, sert olmamalıdır</span>
-                            </li>
-                            <li class="d-flex align-items-start">
-                                <i class="fas fa-check-circle text-primary me-3 mt-1"></i>
-                                <span class="text-secondary">Erken optimizasyon tüm kötülüklerin anasıdır</span>
-                            </li>
+                            @foreach($principles as $principle)
+                                <li class="mb-3 d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-primary me-3 mt-1"></i>
+                                    <span class="text-secondary">{{$principle}}</span>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
+
+                @php $setup = json_decode($homePageSettings->setup) @endphp
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="bento-card">
                         <div class="card-icon">
@@ -462,31 +439,32 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-secondary"><i class="fas fa-desktop me-2"></i>İşletim Sistemi</span>
-                                <span class="fw-semibold">Linux / Windows</span>
+                                <span class="fw-semibold">{{$setup->os}}</span>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-secondary"><i class="fas fa-code me-2"></i>Code Editor</span>
-                                <span class="fw-semibold">VS Code</span>
+                                <span class="fw-semibold">{{$setup->editor}}</span>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-secondary"><i class="fas fa-terminal me-2"></i>Terminal</span>
-                                <span class="fw-semibold">Bash / PowerShell</span>
+                                <span class="fw-semibold">{{$setup->terminal}}</span>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-secondary"><i class="fas fa-database me-2"></i>Database Tools</span>
-                                <span class="fw-semibold">MySQL Workbench, DBeaver</span>
+                                <span class="fw-semibold">{{$setup->db}}</span>
                             </div>
                         </div>
                         <div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-secondary"><i class="fab fa-docker me-2"></i>Containerization</span>
-                                <span class="fw-semibold">Docker, Docker Compose</span>
+                                <span class="fw-semibold">Docker, Kubernetes</span>
+                                {{--                                TODO : Veritabanında containeriation yok eklenecek.--}}
                             </div>
                         </div>
                     </div>

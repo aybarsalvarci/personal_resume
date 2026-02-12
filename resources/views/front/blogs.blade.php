@@ -24,6 +24,67 @@
     <meta property="twitter:image" content="{{ asset('front/img/og-blog.jpg') }}">
 @endpush
 
+@section('schema')
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "CollectionPage",
+              "@id": "{{ url()->current() }}#collection",
+              "url": "{{ url()->current() }}",
+              "name": "Teknik Blog | Tüm Yazılar",
+              "description": "Backend development ve clean architecture üzerine teknik notlar ve makaleler.",
+              "publisher": {
+                "@id": "{{ url('/#person') }}"
+              }
+            },
+            {
+              "@type": "Blog",
+              "@id": "{{ url()->current() }}#blog",
+              "name": "Aybars.dev Teknik Blog",
+              "description": "Backend development üzerine teknik yazılar.",
+              "publisher": {
+                "@type": "Person",
+                "name": "Aybars"
+              },
+              "blogPost": [
+        @foreach($blogs as $blog)
+            {
+              "@type": "BlogPosting",
+              "headline": "{{ $blog->title }}",
+                              "url": "{{ route('blog.detail', $blog->slug) }}",
+                              "datePublished": "{{ $blog->created_at->toIso8601String() }}",
+                              "image": "{{ asset(Storage::url($blog->image)) }}",
+                              "abstract": "{{ str(strip_tags($blog->content))->limit(90) }}"
+                            }@if(!$loop->last)
+                ,
+            @endif
+        @endforeach
+        ]
+},
+{
+"@type": "BreadcrumbList",
+"itemListElement": [
+  {
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Anasayfa",
+    "item": "{{ url('/') }}"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Blog",
+                  "item": "{{ url()->current() }}"
+                }
+              ]
+            }
+          ]
+        }
+    </script>
+@endsection
+
 @section('content')
     <div class="animated-bg"></div>
     <div class="grid-overlay"></div>

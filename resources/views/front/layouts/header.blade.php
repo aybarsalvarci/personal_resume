@@ -39,6 +39,9 @@
     <meta name="msapplication-TileColor" content="#6366f1">
     <meta name="format-detection" content="telephone=no">
 
+    <!-- Schema.org -->
+    @yield('schema')
+
     <!-- Fonts & Libraries -->
     <link href="{{asset('front/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('front/css/aos.css')}}" rel="stylesheet">

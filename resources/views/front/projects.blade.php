@@ -24,6 +24,82 @@
     <meta property="twitter:image" content="{{ asset('front/img/og-portfolio.jpg') }}">
 @endpush
 
+@section('schema')
+    <script type="application/ld+json">
+                {
+                  "@context": "https://schema.org",
+                  "@graph": [
+                    {
+                      "@type": "CollectionPage",
+                      "@id": "{{ route('projects') }}#collection",
+                  "url": "{{ route('projects') }}",
+                  "name": "Portfolio Projeleri - Öğrenme Yolculuğum",
+                  "description": "Backend mimarisi ve modern teknolojiler üzerine geliştirdiğim projelerimi inceleyin.",
+                  "publisher": {
+                    "@type": "Person",
+                    "name": "Aybars",
+                    "url": "{{ url('/') }}"
+                  }
+                },
+                {
+                  "@type": "BreadcrumbList",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Anasayfa",
+                      "item": "{{ url('/') }}"
+                    },
+                    {
+                      "@type": "ListItem",
+                      "position": 2,
+                      "name": "Projeler",
+                      "item": "{{ route('projects') }}"
+                    }
+                  ]
+                },
+                {
+                  "@type": "ItemList",
+                  "name": "Geliştirilen Projeler",
+                  "description": "Yazılım geliştirme projeleri listesi",
+                  "itemListElement": [
+                @foreach($projects as $project)
+                    {
+                      "@type": "ListItem",
+                      "position": {{ $loop->iteration }},
+                      "item": {
+                        "@type": "SoftwareSourceCode",
+                        "name": "{{ $project->name }}",
+                        "description": "{{ strip_tags($project->description) }}",
+                        "programmingLanguage": [
+                    @foreach(explode(',', $project->keys) as $key)
+                        "{{ trim($key) }}"@if(!$loop->last)
+                            ,
+                        @endif
+                    @endforeach
+                    ],
+                    @if($project->link)
+                        "codeRepository": "{{ $project->link }}",
+                    @endif
+                    @if($project->image)
+                        "image": "{{ asset(Storage::url($project->image)) }}",
+                    @endif
+                    "author": {
+                      "@type": "Person",
+                      "name": "Aybars"
+                    }
+                  }
+                }@if(!$loop->last)
+                        ,
+                    @endif
+                @endforeach
+                ]
+              }
+            ]
+          }
+    </script>
+@endsection
+
 @section('content')
     <section class="page-header">
         <div class="header-bg-effect"></div>
