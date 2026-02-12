@@ -54,7 +54,7 @@ class ProjectController extends Controller
         $data = $request->validated();
 
         // image upload
-        $data['image'] = ImageService::upload($request->file('image'), 'images/projects/thumbnails', 800);
+        $data['image'] = ImageService::uploadWithEncoding($request->file('image'), 'images/projects/thumbnails', 800, 'webp');
 
         // create slug
         $data['slug'] = $data['slug'] ? Str::slug($data['slug']) : Str::slug($data['name']);
@@ -98,7 +98,7 @@ class ProjectController extends Controller
                     Storage::disk('public')->delete($project->image);
                 }
 
-                $data['image'] = ImageService::upload($request->file('image'), 'images/projects/thumbnails', 800);
+                $data['image'] = ImageService::uploadWithEncoding($request->file('image'), 'images/projects/thumbnails', 800, 'webp');
             } catch (\Exception $exception) {
                 Log::error("Proje kapak fotoğrafı güncellenirken bir hata oluştu: " . $exception->getMessage(), $exception->getTrace());
                 return redirect()->back()->with("error", "Bir hata oluştu.");
@@ -168,7 +168,7 @@ class ProjectController extends Controller
 
     public function fileUpload(Request $request)
     {
-        $response = ImageService::upload($request->file('file'), 'images/projects/content', 800);
+        $response = ImageService::uploadWithEncoding($request->file('file'), 'images/projects/content', 800, 'webp');
 
         return response()->json(['location' => Storage::url($response)]);
     }

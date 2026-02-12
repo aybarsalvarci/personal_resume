@@ -69,18 +69,22 @@
                                     <td class="align-middle">
                                         <div class="d-flex align-items-center">
                                             <div class="rounded-lg d-flex align-items-center justify-content-center shadow-sm mr-3"
-                                                 style="width: 40px; height: 40px; background-color: #2d3244; border: 1px solid #3f475e;">
+                                                 style="width: 40px; height: 40px; background-color: #2d3244; border: 1px solid #3f475e; flex-shrink: 0;">
                                                 <i class="{{ $project->icon }} text-primary"></i>
                                             </div>
-                                            <div>
-                                                <div class="text-white font-weight-bold mb-0">
-                                                    {{ $project->name }}
-                                                    {{-- Öne Çıkan Yıldızı --}}
+
+                                            <div style="min-width: 0; flex: 1;">
+                                                <div class="d-flex align-items-center">
+                                                    <span class="text-white font-weight-bold mb-0 text-truncate">
+                                                        {{ $project->name }}
+                                                    </span>
                                                     @if($project->isFeatured)
-                                                        <i class="fas fa-star text-warning ml-1" style="font-size: 0.7rem;" title="Öne Çıkan Proje"></i>
+                                                        <i class="fas fa-star text-warning ml-2"
+                                                           style="font-size: 0.75rem; flex-shrink: 0;"
+                                                           title="Öne Çıkan Proje"></i>
                                                     @endif
                                                 </div>
-                                                <div class="text-muted" style="font-size: 0.75rem;">
+                                                <div class="text-muted text-truncate" style="font-size: 0.75rem;">
                                                     <i class="fas fa-link mr-1" style="font-size: 0.6rem;"></i>{{ $project->slug }}
                                                 </div>
                                             </div>
