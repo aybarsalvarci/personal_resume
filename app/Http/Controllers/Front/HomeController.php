@@ -26,7 +26,7 @@ class HomeController extends Controller
         });
 
         $blogs = Cache::remember('home_blogs', 60 * 60 * 24, function () {
-            Blog::where('isFeatured', true)
+            return Blog::where('isFeatured', true)
                 ->with(['category' => function ($query) {
                     $query->select('name', 'id');
                 }])
@@ -36,7 +36,7 @@ class HomeController extends Controller
         });
 
         $homePageSettings = Cache::remember('home_page_settings', 60 * 60 * 24, function () {
-            HomePage::firstOrFail();
+            return HomePage::firstOrFail();
         });
 
         return view('front.homepage', compact('projects', 'blogs', 'homePageSettings'));

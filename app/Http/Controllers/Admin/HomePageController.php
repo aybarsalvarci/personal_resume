@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\HomePage\UpdateRequest;
 use App\Models\HomePage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class HomePageController extends Controller
@@ -91,6 +92,7 @@ class HomePageController extends Controller
 
         try {
             $homePage->update($data);
+            Cache::forget('home_page_settings');
         }
         catch (\Exception $e) {
             Log::error("Anasayfa güncellenirken bir hata oluştu: " . $e->getMessage(), $e->getTrace());

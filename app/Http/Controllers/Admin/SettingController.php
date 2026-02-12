@@ -9,6 +9,7 @@ use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Opcodes\LogViewer\Facades\Cache;
 
 class SettingController extends Controller
 {
@@ -114,6 +115,7 @@ class SettingController extends Controller
 
         try {
             $settings->update($data);
+            Cache::forget('general_settings');
         } catch (\Exception $exception) {
             Log::error("Ayarlar kaydedilemedi: " . $exception->getMessage(), $exception->getTrace());
             return redirect()->back()->with('error', 'Ayarlar kaydedilemedi');
