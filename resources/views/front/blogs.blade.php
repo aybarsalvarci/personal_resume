@@ -9,19 +9,19 @@
 @push('og')
     <meta property="og:type" content="blog">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="Teknik Blog - Öğrenme Yolculuğum">
+    <meta property="og:title" content="Teknik Blog">
     <meta property="og:description"
-          content="Backend development ve clean architecture üzerine teknik notlar ve makaleler.">
-    <meta property="og:image" content="{{ asset('front/img/og-blog.jpg') }}">
-    <meta property="og:site_name" content="Aybars.dev">
+          content="{{config('settings.meta_description')}}">
+    <meta property="og:image" content="{{ asset('front/images/og_blog.webp') }}">
+    <meta property="og:site_name" content="{{url()->current()}}">
     <meta property="og:locale" content="tr_TR">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="Teknik Blog - Öğrenme Yolculuğum">
+    <meta property="twitter:title" content="{{config('settings.title')}}">
     <meta property="twitter:description"
-          content="Backend development ve clean architecture üzerine teknik notlar ve makaleler.">
-    <meta property="twitter:image" content="{{ asset('front/img/og-blog.jpg') }}">
+          content="{{config('settings.meta_description')}}">
+    <meta property="twitter:image" content="{{ asset('front/images/og_blog.webp') }}">
 @endpush
 
 @section('schema')

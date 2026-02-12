@@ -11,26 +11,33 @@ use App\Models\HomePage;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
     public function home()
     {
-        $projects = Project::where('isFeatured', true)
-            ->orderBy('created_at', 'desc')
-            ->limit(2)
-            ->get();
+        $projects = Cache::remember('home_projects', 60 * 60 * 24, function () {
+            return Project::where('isFeatured', true)
+                ->orderBy('created_at', 'desc')
+                ->limit(2)
+                ->get();
+        });
 
-        $blogs = Blog::where('isFeatured', true)
-            ->with(['category' => function ($query) {
-                $query->select('name', 'id');
-            }])
-            ->orderBy('created_at', 'desc')
-            ->limit(3)
-            ->get();
+        $blogs = Cache::remember('home_blogs', 60 * 60 * 24, function () {
+            Blog::where('isFeatured', true)
+                ->with(['category' => function ($query) {
+                    $query->select('name', 'id');
+                }])
+                ->orderBy('created_at', 'desc')
+                ->limit(3)
+                ->get();
+        });
 
-        $homePageSettings = HomePage::firstOrFail();
+        $homePageSettings = Cache::remember('home_page_settings', 60 * 60 * 24, function () {
+            HomePage::firstOrFail();
+        });
 
         return view('front.homepage', compact('projects', 'blogs', 'homePageSettings'));
     }
@@ -58,9 +65,8 @@ class HomeController extends Controller
 
             // status filter
             ->when($request->filled('status') and $request->get('status') != 'all', function ($query) use ($request) {
-                    $query->where('status', $request->status);
+                $query->where('status', $request->status);
             })
-
             ->latest()
             ->paginate(10)
             ->withQueryString();

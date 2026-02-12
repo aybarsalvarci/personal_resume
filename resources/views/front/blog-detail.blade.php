@@ -12,12 +12,12 @@
 @push('og')
     <meta property="og:type" content="article">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="{{ $blog->title }} | Aybars.dev">
+    <meta property="og:title" content="{{ $blog->title }} | {{config('app.name')}}">
     <meta property="og:description"
           content="{{ $blog->meta_description ?? Str::limit(strip_tags($blog->content), 160) }}">
     <meta property="og:image" content="{{ asset(Storage::url($blog->image)) }}">
     <meta property="og:locale" content="tr_TR">
-    <meta property="og:site_name" content="Aybars.dev">
+    <meta property="og:site_name" content="{{config('app.name')}}">
     <meta property="article:published_time" content="{{ $blog->created_at->toIso8601String() }}">
     <meta property="article:author" content="Aybars Şalvarcı">
     <meta property="article:section" content="{{ $blog->category->name }}">
@@ -31,6 +31,71 @@
     <meta name="twitter:image" content="{{ asset(Storage::url($blog->image)) }}">
     <meta name="twitter:creator" content="@aybarsalvarci">
 @endpush
+
+@section('schema')
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "BlogPosting",
+              "@id": "{{ url()->current() }}#primarypost",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ url()->current() }}"
+      },
+      "headline": "{{ $blog->title }}",
+      "description": "{{ $blog->meta_description ?? Str::limit(strip_tags($blog->content), 160) }}",
+      "image": {
+        "@type": "ImageObject",
+        "url": "{{ asset(Storage::url($blog->image)) }}"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Aybars Şalvarcı",
+        "url": "{{ url('/') }}"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Aybars Şalvarcı",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ asset(Storage::url(config('settings.logo_dark'))) }}"
+        }
+      },
+      "datePublished": "{{ $blog->created_at->toIso8601String() }}",
+      "dateModified": "{{ $blog->updated_at->toIso8601String() }}",
+      "articleSection": "{{ $blog->category->name }}",
+      "wordCount": "{{ str_word_count(strip_tags($blog->content)) }}",
+      "timeRequired": "PT5M"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Anasayfa",
+              "item": "{{ url('/') }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "{{ route('blogs') }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ $blog->title }}",
+          "item": "{{ url()->current() }}"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+@endsection
 
 @section('content')
     <div class="animated-bg"></div>

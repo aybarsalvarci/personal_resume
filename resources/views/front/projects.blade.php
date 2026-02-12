@@ -11,8 +11,8 @@
     <meta property="og:url" content="{{ route('projects') }}">
     <meta property="og:title" content="Portfolio Projeleri - Öğrenme Yolculuğum">
     <meta property="og:description"
-          content="Backend mimarisi ve modern teknolojiler üzerine geliştirdiğim projelerimi inceleyin.">
-    <meta property="og:image" content="{{ asset('front/img/og-portfolio.jpg') }}">
+          content="{{config('settings.meta_description')}}">
+    <meta property="og:image" content="{{ asset('front/images/og_projects.webp') }}">
     <meta property="og:site_name" content="Aybars.dev">
     <meta property="og:locale" content="tr_TR">
 
@@ -20,8 +20,8 @@
     <meta property="twitter:url" content="{{ route('projects') }}">
     <meta property="twitter:title" content="Portfolio Projeleri - Öğrenme Yolculuğum">
     <meta property="twitter:description"
-          content="Backend mimarisi ve modern teknolojiler üzerine geliştirdiğim projelerimi inceleyin.">
-    <meta property="twitter:image" content="{{ asset('front/img/og-portfolio.jpg') }}">
+          content="{{config('settings.meta_description')}}">
+    <meta property="twitter:image" content="{{ asset('front/images/og_projects.webp') }}">
 @endpush
 
 @section('schema')
