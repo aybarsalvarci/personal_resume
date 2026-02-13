@@ -18,7 +18,7 @@ return [
 
     'api_only' => env('LOG_VIEWER_API_ONLY', false),
 
-    'require_auth_in_production' => true,
+    'require_auth_in_production' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -97,8 +97,7 @@ return [
 
     'middleware' => [
         'web',
-//        'auth', //TODO: Auth middleware log viewer içn aktif hale getirilecek.
-        \Opcodes\LogViewer\Http\Middleware\AuthorizeLogViewer::class,
+        'auth'
     ],
 
     /*
@@ -111,7 +110,8 @@ return [
     */
 
     'api_middleware' => [
-        \Opcodes\LogViewer\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        'web',
+        'auth',
         \Opcodes\LogViewer\Http\Middleware\AuthorizeLogViewer::class,
     ],
 
