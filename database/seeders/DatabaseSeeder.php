@@ -24,17 +24,12 @@ class DatabaseSeeder extends Seeder
             HomePageSeeder::class,
         ]);
 
-        User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
+        User::create([
+            'name' => 'Aybars',
+            'email' => 'aybarsalvarci44@gmail.com',
+            'password' => bcrypt('123890_123890_Saay4'),
         ]);
 
-        ProjectCategory::factory(10)
-            ->has(Project::factory()->count(10), 'projects')
-            ->create();
 
-        BlogCategory::factory(10)
-            ->has(Blog::factory()->count(10), 'blogs')
-            ->create();
     }
 }
