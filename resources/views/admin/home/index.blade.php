@@ -371,7 +371,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="text-white-50 small">Containerization Tools</label>
-                                    <input type="text" name="setup_db" class="form-control"
+                                    <input type="text" name="setup_containerization" class="form-control"
                                            value="{{ old('setup_containerization', $homepage->setup->containerization) }}"
                                            placeholder="Docker">
                                 </div>
