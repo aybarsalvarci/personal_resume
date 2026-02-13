@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -16,8 +17,9 @@ Route::post('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
 Route::get('/blog/{slug}', [HomeController::class, 'blogDetail'])->name('blog.detail');
 
+
 // ===================== Admin Panel Routes =====================
-Route::prefix('/admin')->name('admin.')->group(function() {
+Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function() {
     Route::get("/", [DashboardController::class, 'dashboard'])->name('dashboard');
 
     Route::post('/projects/file-upload', [ProjectController::class, 'fileUpload'])->name('projects.file-upload');
@@ -31,5 +33,12 @@ Route::prefix('/admin')->name('admin.')->group(function() {
     Route::resource('/settings', SettingController::class);
 
     Route::resource('/homepage', HomepageController::class)->only('index', 'update');
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
+// ===================== Login Routes =====================
+Route::middleware('guest')->group(function() {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'checkLogin']);
+});
