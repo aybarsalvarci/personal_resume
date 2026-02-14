@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SiteMapController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ContactController;
@@ -17,6 +18,8 @@ Route::post('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
 Route::get('/blog/{slug}', [HomeController::class, 'blogDetail'])->name('blog.detail');
 
+// ===================== Front Routes =====================
+Route::get('/sitemap.xml', [SiteMapController::class, 'index'])->name('sitemap');
 
 // ===================== Admin Panel Routes =====================
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function() {
