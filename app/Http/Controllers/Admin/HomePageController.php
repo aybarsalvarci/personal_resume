@@ -32,7 +32,7 @@ class HomePageController extends Controller
         $data = $request->validated();
 
         // hero terminal
-        $data['hero_terminal'] = json_encode(array_combine($data['term_cmd'], $data['term_out']));
+        $data['hero_terminal'] = array_combine($data['term_cmd'], $data['term_out']);
         unset($data['term_cmd']);
         unset($data['term_out']);
 
@@ -43,7 +43,7 @@ class HomePageController extends Controller
         $about['right']['description'] = $data['about_technical_desc'];
         $about['right']['list'] = $data['about_skills_list'];
 
-        $data['about'] = json_encode($about);
+        $data['about'] = $about;
 
         unset($data['about_subtitle']);
         unset($data['about_learning']);
@@ -52,14 +52,14 @@ class HomePageController extends Controller
         unset($data['about_skills_list']);
 
         // stats
-        $data['stats'] = json_encode(array_combine($data['stat_label'], $data['stat_val']));
+        $data['stats'] =array_combine($data['stat_label'], $data['stat_val']);
         unset($data['stat_label']);
         unset($data['stat_val']);
 
         // techstack
         $tech = [];
         for ($i = 0; $i < count($data['tech_title']); $i++) {
-            $tech = [
+            $tech[] = [
                 'icon' => $data['tech_icon'][$i],
                 'title' => $data['tech_title'][$i],
                 'description' => $data['tech_description'][$i],
@@ -67,15 +67,12 @@ class HomePageController extends Controller
             ];
         }
 
-        $data['techs'] = json_encode($tech);
+        $data['techs'] = $tech;
 
         unset($data['tech_title']);
         unset($data['tech_description']);
         unset($data['tech_tags']);
         unset($data['tech_icon']);
-
-        // principles
-        $data['principles'] = json_encode($data['principles']);
 
         // setup
         $setup['os'] = $data['setup_os'];
@@ -84,12 +81,13 @@ class HomePageController extends Controller
         $setup['db'] = $data['setup_db'];
         $setup['containerization'] = $data['setup_containerization'];
 
-        $data['setup'] = json_encode($setup);
+        $data['setup'] = $setup;
 
         unset($data['setup_os']);
         unset($data['setup_editor']);
         unset($data['setup_terminal']);
         unset($data['setup_db']);
+        unset($data['setup_containerization']);
 
         try {
             $homePage->update($data);
